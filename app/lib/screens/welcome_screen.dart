@@ -94,7 +94,7 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        '${AppLocalizations.of(context).history} • ${AppLocalizations.of(context).news} • ${AppLocalizations.of(context).presentation}',
+                        '${AppLocalizations.of(context).news} • ${AppLocalizations.of(context).presentation}',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: scheme.onSurfaceVariant,

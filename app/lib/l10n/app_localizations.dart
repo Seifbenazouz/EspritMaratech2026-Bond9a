@@ -113,6 +113,13 @@ class AppLocalizations {
   String get presentationBlog => _localizedValues[_localeKey]!['presentationBlog']!;
   String get presentationInstagram => _localizedValues[_localeKey]!['presentationInstagram']!;
   String get presentationFacebook => _localizedValues[_localeKey]!['presentationFacebook']!;
+  String get publishNews => _localizedValues[_localeKey]!['publishNews']!;
+  String get publishNewsSubtitle => _localizedValues[_localeKey]!['publishNewsSubtitle']!;
+  String get newsPublished => _localizedValues[_localeKey]!['newsPublished']!;
+  String get newsFeatured => _localizedValues[_localeKey]!['newsFeatured']!;
+  String get readMore => _localizedValues[_localeKey]!['readMore']!;
+  String newsCount(int n) => _localizedValues[_localeKey]!['newsCount']!.replaceAll('{n}', '$n');
+  String get newsEmptySubtitle => _localizedValues[_localeKey]!['newsEmptySubtitle']!;
   String get createSeries => _localizedValues[_localeKey]!['createSeries']!;
   String get themeTooltip => _localizedValues[_localeKey]!['themeTooltip']!;
   String get themeLight => _localizedValues[_localeKey]!['themeLight']!;
@@ -265,6 +272,13 @@ class AppLocalizations {
           '• Intermédiaires : Pour les coureurs ayant une certaine expérience et désirant progresser.\n'
           '• Avancés : Pour les coureurs expérimentés visant des performances spécifiques.\n'
           'Des séances spécifiques, comme des entraînements en piscine ou des sorties vélo, sont également organisées pour diversifier les activités.',
+      'publishNews': 'Publier une actualité',
+      'publishNewsSubtitle': 'Créer une news visible dans la page Actualités',
+      'newsPublished': 'Actualité publiée avec succès',
+      'newsFeatured': 'À la une',
+      'readMore': 'Lire la suite',
+      'newsCount': '{n} actualité(s)',
+      'newsEmptySubtitle': 'Les actualités du club apparaîtront ici.',
       'presentationJoinUs': 'Rejoignez-nous !',
       'presentationLearnMore': 'Pour en savoir plus sur nos activités et rejoindre la communauté RCT :',
       'presentationBlog': 'Blog officiel',
@@ -421,6 +435,13 @@ class AppLocalizations {
           '• Intermediate: For runners with some experience wanting to progress.\n'
           '• Advanced: For experienced runners aiming for specific performances.\n'
           'Specific sessions, such as pool training or bike outings, are also organized to diversify activities.',
+      'publishNews': 'Publish news',
+      'publishNewsSubtitle': 'Create a news item visible on the News page',
+      'newsPublished': 'News published successfully',
+      'newsFeatured': 'Featured',
+      'readMore': 'Read more',
+      'newsCount': '{n} news item(s)',
+      'newsEmptySubtitle': 'Club news will appear here.',
       'presentationJoinUs': 'Join us!',
       'presentationLearnMore': 'To learn more about our activities and join the RCT community:',
       'presentationBlog': 'Official blog',
@@ -577,6 +598,13 @@ class AppLocalizations {
           '• المتوسطون: للعدائين ذوي الخبرة الراغبين في التقدم.\n'
           '• المتقدمون: للعدائين ذوي الخبرة الساعين لأداء محدد.\n'
           'تُنظم أيضًا جلسات خاصة مثل تدريب المسبح أو رحلات الدراجات لتنويع الأنشطة.',
+      'publishNews': 'نشر خبر',
+      'publishNewsSubtitle': 'إنشاء خبر يظهر في صفحة الأخبار',
+      'newsPublished': 'تم نشر الخبر بنجاح',
+      'newsFeatured': 'مميز',
+      'readMore': 'اقرأ المزيد',
+      'newsCount': '{n} خبر',
+      'newsEmptySubtitle': 'ستظهر أخبار النادي هنا.',
       'presentationJoinUs': 'انضم إلينا!',
       'presentationLearnMore': 'لمعرفة المزيد عن أنشطتنا والانضمام إلى مجتمع RCT:',
       'presentationBlog': 'المدونة الرسمية',
@@ -733,6 +761,13 @@ class AppLocalizations {
           '• Intermedi: Per i corridori con una certa esperienza che desiderano progredire.\n'
           '• Avanzati: Per i corridori esperti che mirano a prestazioni specifiche.\n'
           'Sono inoltre organizzate sessioni specifiche, come allenamenti in piscina o uscite in bici, per diversificare le attività.',
+      'publishNews': 'Pubblica notizia',
+      'publishNewsSubtitle': 'Crea una notizia visibile nella pagina Notizie',
+      'newsPublished': 'Notizia pubblicata con successo',
+      'newsFeatured': 'In evidenza',
+      'readMore': 'Leggi di più',
+      'newsCount': '{n} notizia/e',
+      'newsEmptySubtitle': 'Le notizie del club appariranno qui.',
       'presentationJoinUs': 'Unisciti a noi!',
       'presentationLearnMore': 'Per saperne di più sulle nostre attività e unirti alla comunità RCT:',
       'presentationBlog': 'Blog ufficiale',
@@ -889,6 +924,13 @@ class AppLocalizations {
           '• Fortgeschrittene: Für Läufer mit etwas Erfahrung, die sich verbessern möchten.\n'
           '• Erfahren: Für erfahrene Läufer mit spezifischen Leistungszielen.\n'
           'Spezifische Sitzungen wie Schwimmtraining oder Radausflüge werden ebenfalls organisiert, um die Aktivitäten zu diversifizieren.',
+      'publishNews': 'News veröffentlichen',
+      'publishNewsSubtitle': 'Eine Nachricht erstellen, die auf der News-Seite sichtbar ist',
+      'newsPublished': 'News erfolgreich veröffentlicht',
+      'newsFeatured': 'Im Fokus',
+      'readMore': 'Weiterlesen',
+      'newsCount': '{n} Nachricht(en)',
+      'newsEmptySubtitle': 'Die Vereinsnachrichten erscheinen hier.',
       'presentationJoinUs': 'Werden Sie Mitglied!',
       'presentationLearnMore': 'Erfahren Sie mehr über unsere Aktivitäten und treten Sie der RCT-Community bei:',
       'presentationBlog': 'Offizieller Blog',

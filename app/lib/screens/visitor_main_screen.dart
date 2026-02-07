@@ -6,11 +6,10 @@ import '../widgets/language_switch_button.dart';
 import '../widgets/text_scale_button.dart';
 import '../widgets/theme_switch_button.dart';
 import 'actualites_screen.dart';
-import 'historique_screen.dart';
 import 'login_screen.dart';
 import 'presentation_screen.dart';
 
-/// Écran principal pour les visiteurs (sans login) : onglets Actualités, Historique, Présentation
+/// Écran principal pour les visiteurs (sans login) : Actualités, Présentation (l'historique est dans Présentation)
 class VisitorMainScreen extends StatefulWidget {
   const VisitorMainScreen({super.key});
 
@@ -45,19 +44,17 @@ class _VisitorMainScreenState extends State<VisitorMainScreen> {
       onDestinationSelected: (i) => setState(() => _currentIndex = i),
       items: [
         (icon: Icons.article_outlined, selectedIcon: Icons.article, label: AppLocalizations.of(context).news),
-        (icon: Icons.history, selectedIcon: Icons.history, label: AppLocalizations.of(context).history),
         (icon: Icons.info_outline, selectedIcon: Icons.info, label: AppLocalizations.of(context).presentation),
       ],
     );
     return Semantics(
-      label: 'Mode visiteur - Actualités, Historique, Présentation',
+      label: 'Mode visiteur - Actualités, Présentation',
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         body: IndexedStack(
         index: _currentIndex,
         children: [
           ActualitesScreen(drawer: drawer, extraActions: _appBarActions(context)),
-          HistoriqueScreen(drawer: drawer, extraActions: _appBarActions(context)),
           PresentationScreen(drawer: drawer, extraActions: _appBarActions(context)),
         ],
       ),

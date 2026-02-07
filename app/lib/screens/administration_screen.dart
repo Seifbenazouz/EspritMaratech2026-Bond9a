@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
 import '../models/login_response.dart';
+import 'actualite_form_screen.dart';
 import 'permissions_screen.dart';
 import 'users_screen.dart';
 
@@ -21,6 +22,22 @@ class AdministrationScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          Card(
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                child: Icon(Icons.article, color: Theme.of(context).colorScheme.primary),
+              ),
+              title: Text(l10n.publishNews),
+              subtitle: Text(l10n.publishNewsSubtitle),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const ActualiteFormScreen(),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
           Card(
             child: ListTile(
               leading: const CircleAvatar(

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -39,16 +40,19 @@ public class ActualiteController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN_PRINCIPAL')")
     public ResponseEntity<Actualite> create(@Valid @RequestBody ActualiteRequest request) {
         return ResponseEntity.ok(actualiteService.create(request));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN_PRINCIPAL')")
     public ResponseEntity<Actualite> update(@PathVariable Long id, @Valid @RequestBody ActualiteRequest request) {
         return ResponseEntity.ok(actualiteService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN_PRINCIPAL')")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         actualiteService.deleteById(id);
         return ResponseEntity.noContent().build();
