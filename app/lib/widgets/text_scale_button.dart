@@ -20,46 +20,66 @@ class TextScaleButton extends StatelessWidget {
 
     showDialog<void>(
       context: context,
+      barrierColor: Colors.black38,
+      barrierDismissible: true,
       builder: (ctx) {
-        final screenWidth = MediaQuery.of(ctx).size.width;
-        final responsiveScale = (screenWidth / 400).clamp(0.85, 1.35);
-        return MediaQuery(
-          data: MediaQuery.of(ctx).copyWith(
-            textScaler: TextScaler.linear(responsiveScale),
-          ),
+        final scheme = Theme.of(ctx).colorScheme;
+        return Dialog(
+          alignment: Alignment.center,
+          insetPadding: const EdgeInsets.all(40),
+          backgroundColor: Colors.transparent,
           child: StatefulBuilder(
             builder: (ctx, setState) {
-              return Center(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 280),
-                  child: AlertDialog(
-                    insetPadding: const EdgeInsets.symmetric(horizontal: 24),
-                    contentPadding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
-                    titlePadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                    actionsPadding: const EdgeInsets.only(bottom: 8, right: 8),
-                    title: Icon(Icons.text_fields, color: Theme.of(context).colorScheme.primary, size: 32),
-                    content: Slider(
-                      value: scale,
-                      min: 0.8,
-                      max: 1.8,
-                      divisions: 10,
-                      onChanged: (v) {
-                        setState(() => scale = v);
-                        TextScaleProvider.setScale(ctx, v);
-                      },
-                    ),
-                    actions: [
-                      IconButton(
-                        onPressed: () => Navigator.of(ctx).pop(),
-                        icon: const Icon(Icons.close),
-                        tooltip: 'Fermer',
-                      ),
+              return Material(
+                color: scheme.surface,
+                borderRadius: BorderRadius.circular(6),
+                elevation: 4,
+                child: IntrinsicHeight(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 44),
+                    constraints: const BoxConstraints(maxWidth: 220, maxHeight: 140),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.text_fields, color: scheme.primary, size: 28),
+                        const SizedBox(width: 8),
+                        SizedBox(
+                          width: 130,
+                          child: SliderTheme(
+                            data: SliderTheme.of(ctx).copyWith(
+                              trackHeight: 4,
+                              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
+                              overlayShape: const RoundSliderOverlayShape(overlayRadius: 14),
+                            ),
+                            child: Slider(
+                              value: scale,
+                              min: 0.8,
+                              max: 1.8,
+                              divisions: 10,
+                              onChanged: (v) {
+                                setState(() => scale = v);
+                                TextScaleProvider.setScale(ctx, v);
+                              },
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 2),
+                        InkWell(
+                          onTap: () => Navigator.of(ctx).pop(),
+                          borderRadius: BorderRadius.circular(4),
+                          child: Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: Icon(Icons.close, size: 22, color: scheme.onSurface),
+                          ),
+                        ),
                     ],
                   ),
                 ),
+                ),
               );
-          },
-        ),
+            },
+          ),
         );
       },
     );

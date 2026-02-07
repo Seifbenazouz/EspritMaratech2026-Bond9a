@@ -105,6 +105,14 @@ class AppLocalizations {
   String get presentationCharterContent => _localizedValues[_localeKey]!['presentationCharterContent']!;
   String get presentationGroupsSection => _localizedValues[_localeKey]!['presentationGroupsSection']!;
   String get presentationGroupsContent => _localizedValues[_localeKey]!['presentationGroupsContent']!;
+  String get presentationWhoWeAre => _localizedValues[_localeKey]!['presentationWhoWeAre']!;
+  String get presentationWhoWeAreContent => _localizedValues[_localeKey]!['presentationWhoWeAreContent']!;
+  String get presentationMotto => _localizedValues[_localeKey]!['presentationMotto']!;
+  String get presentationJoinUs => _localizedValues[_localeKey]!['presentationJoinUs']!;
+  String get presentationLearnMore => _localizedValues[_localeKey]!['presentationLearnMore']!;
+  String get presentationBlog => _localizedValues[_localeKey]!['presentationBlog']!;
+  String get presentationInstagram => _localizedValues[_localeKey]!['presentationInstagram']!;
+  String get presentationFacebook => _localizedValues[_localeKey]!['presentationFacebook']!;
   String get createSeries => _localizedValues[_localeKey]!['createSeries']!;
   String get themeTooltip => _localizedValues[_localeKey]!['themeTooltip']!;
   String get themeLight => _localizedValues[_localeKey]!['themeLight']!;
@@ -185,7 +193,7 @@ class AppLocalizations {
       'noEventInHistory': 'Aucun événement dans l\'historique',
       'noNews': 'Aucune actualité pour le moment',
       'historyTitle': 'Historique du club',
-      'presentationTitle': 'Présentation du club',
+      'presentationTitle': 'Présentation du Running Club Tunis',
       'required': 'Requis',
       'cancel': 'Annuler',
       'save': 'Enregistrer',
@@ -234,32 +242,34 @@ class AppLocalizations {
       'cin': 'CIN',
       'title': 'Titre',
       'group': 'Groupe',
-      'presentationHistorySection': 'Historique',
-      'presentationHistoryContent': 'Le Running Club Tunis est un club de course à pied fondé à Tunis. '
-          'Depuis sa création, le club rassemble des passionnés de running '
-          'pour partager des moments de sport, de dépassement et de convivialité.',
+      'presentationWhoWeAre': 'Qui sommes-nous ?',
+      'presentationWhoWeAreContent': 'Le Running Club Tunis (RCT) est une association sportive tunisienne passionnée par la course à pied et le sport en général. Fondé pour promouvoir la pratique du running accessible à tous, quel que soit le niveau, le RCT offre des séances de coaching adaptées ou personnalisées pour ses membres.',
+      'presentationMotto': '« Running Club Tunis... Plus qu\'un club... une famille. »',
+      'presentationHistorySection': 'Historique du Club',
+      'presentationHistoryContent': 'Depuis sa création, le RCT s\'est engagé à créer une communauté soudée autour de la course à pied. Au fil des années, le club a organisé et participé à de nombreux événements, renforçant ainsi son rôle dans la promotion du sport en Tunisie.',
       'presentationValuesSection': 'Nos valeurs',
-      'presentationValuesContent': '• Passion : L\'amour du running nous rassemble\n'
-          '• Solidarité : Chacun avance à son rythme, ensemble\n'
-          '• Respect : De soi, des autres et de l\'environnement\n'
-          '• Dépassement : Se fixer des objectifs et les atteindre',
-      'presentationObjectivesSection': 'Objectifs',
-      'presentationObjectivesContent': '• Promouvoir la pratique de la course à pied à Tunis\n'
-          '• Organiser des sorties régulières et des événements\n'
-          '• Créer une communauté de coureurs bienveillante\n'
-          '• Représenter le club lors de courses nationales',
-      'presentationCharterSection': 'Charte',
-      'presentationCharterContent': 'En rejoignant le Running Club Tunis, chaque membre s\'engage à :\n'
-          '• Respecter les horaires et lieux de rendez-vous\n'
-          '• Être ponctuel et prévenir en cas d\'absence\n'
-          '• Adopter un comportement bienveillant envers tous\n'
-          '• Participer activement à la vie du club',
+      'presentationValuesContent': '• Accessibilité : Offrir la possibilité à chacun de pratiquer la course à pied, peu importe son niveau.\n'
+          '• Solidarité : Favoriser l\'entraide et le soutien mutuel entre les membres.\n'
+          '• Engagement : Encourager la participation active dans les activités du club et au sein de la communauté.\n'
+          '• Respect : Promouvoir le respect des autres, de soi-même et de l\'environnement.',
+      'presentationObjectivesSection': 'Objectifs du Club',
+      'presentationObjectivesContent': '• Encourager la pratique régulière de la course à pied.\n'
+          '• Organiser des événements sportifs pour rassembler la communauté.\n'
+          '• Offrir des séances d\'entraînement adaptées aux besoins de chacun.\n'
+          '• Promouvoir un mode de vie sain et actif.',
+      'presentationCharterSection': 'Charte éthique',
+      'presentationCharterContent': 'Le club a élaboré une charte éthique sportive, approuvée à l\'unanimité, qui reflète son engagement envers des pratiques sportives responsables et respectueuses.',
       'presentationGroupsSection': 'Organisation des groupes',
-      'presentationGroupsContent': 'Le club est organisé en plusieurs groupes selon les niveaux et objectifs :\n'
-          '• Débutants : Découverte du running\n'
-          '• Intermédiaires : Progression et régularité\n'
-          '• Confirmés : Performances et compétitions\n'
-          'Chaque groupe dispose d\'un responsable et d\'un programme adapté.',
+      'presentationGroupsContent': 'Le RCT structure ses activités en différents groupes pour répondre aux besoins variés de ses membres :\n'
+          '• Débutants : Pour ceux qui souhaitent découvrir la course à pied en douceur.\n'
+          '• Intermédiaires : Pour les coureurs ayant une certaine expérience et désirant progresser.\n'
+          '• Avancés : Pour les coureurs expérimentés visant des performances spécifiques.\n'
+          'Des séances spécifiques, comme des entraînements en piscine ou des sorties vélo, sont également organisées pour diversifier les activités.',
+      'presentationJoinUs': 'Rejoignez-nous !',
+      'presentationLearnMore': 'Pour en savoir plus sur nos activités et rejoindre la communauté RCT :',
+      'presentationBlog': 'Blog officiel',
+      'presentationInstagram': 'Instagram',
+      'presentationFacebook': 'Facebook',
       'createSeries': 'Création en série',
       'themeTooltip': 'Changer le thème (Clair / Sombre / Contraste élevé)',
       'themeLight': 'Clair',
@@ -339,7 +349,7 @@ class AppLocalizations {
       'noEventInHistory': 'No events in history',
       'noNews': 'No news at the moment',
       'historyTitle': 'Club history',
-      'presentationTitle': 'Club presentation',
+      'presentationTitle': 'Running Club Tunis Presentation',
       'required': 'Required',
       'cancel': 'Cancel',
       'save': 'Save',
@@ -388,32 +398,34 @@ class AppLocalizations {
       'cin': 'ID number',
       'title': 'Title',
       'group': 'Group',
-      'presentationHistorySection': 'History',
-      'presentationHistoryContent': 'Running Club Tunis is a running club founded in Tunis. '
-          'Since its creation, the club brings together running enthusiasts '
-          'to share moments of sport, achievement and conviviality.',
+      'presentationWhoWeAre': 'Who are we?',
+      'presentationWhoWeAreContent': 'Running Club Tunis (RCT) is a Tunisian sports association passionate about running and sport in general. Founded to promote running practice accessible to all, regardless of level, RCT offers adapted or personalized coaching sessions for its members.',
+      'presentationMotto': '"Running Club Tunis... More than a club... a family."',
+      'presentationHistorySection': 'Club History',
+      'presentationHistoryContent': 'Since its creation, RCT has been committed to building a close-knit community around running. Over the years, the club has organized and participated in numerous events, strengthening its role in promoting sport in Tunisia.',
       'presentationValuesSection': 'Our values',
-      'presentationValuesContent': '• Passion: Love of running brings us together\n'
-          '• Solidarity: Everyone progresses at their own pace, together\n'
-          '• Respect: For oneself, others and the environment\n'
-          '• Achievement: Setting goals and reaching them',
-      'presentationObjectivesSection': 'Objectives',
-      'presentationObjectivesContent': '• Promote running practice in Tunis\n'
-          '• Organize regular outings and events\n'
-          '• Create a welcoming community of runners\n'
-          '• Represent the club at national races',
-      'presentationCharterSection': 'Charter',
-      'presentationCharterContent': 'By joining Running Club Tunis, each member commits to:\n'
-          '• Respecting meeting times and places\n'
-          '• Being on time and notifying in case of absence\n'
-          '• Adopting a welcoming attitude towards everyone\n'
-          '• Actively participating in club life',
-      'presentationGroupsSection': 'Group organization',
-      'presentationGroupsContent': 'The club is organized into several groups according to levels and objectives:\n'
-          '• Beginners: Discovering running\n'
-          '• Intermediate: Progress and regularity\n'
-          '• Advanced: Performance and competitions\n'
-          'Each group has a leader and an adapted programme.',
+      'presentationValuesContent': '• Accessibility: Offer everyone the opportunity to practice running, whatever their level.\n'
+          '• Solidarity: Foster mutual support among members.\n'
+          '• Commitment: Encourage active participation in club activities and the community.\n'
+          '• Respect: Promote respect for others, oneself and the environment.',
+      'presentationObjectivesSection': 'Club Objectives',
+      'presentationObjectivesContent': '• Encourage regular running practice.\n'
+          '• Organize sports events to bring the community together.\n'
+          '• Offer training sessions adapted to everyone\'s needs.\n'
+          '• Promote a healthy and active lifestyle.',
+      'presentationCharterSection': 'Ethical Charter',
+      'presentationCharterContent': 'The club has developed a sports ethical charter, approved unanimously, which reflects its commitment to responsible and respectful sports practices.',
+      'presentationGroupsSection': 'Group Organization',
+      'presentationGroupsContent': 'RCT structures its activities in different groups to meet the varied needs of its members:\n'
+          '• Beginners: For those who want to discover running gently.\n'
+          '• Intermediate: For runners with some experience wanting to progress.\n'
+          '• Advanced: For experienced runners aiming for specific performances.\n'
+          'Specific sessions, such as pool training or bike outings, are also organized to diversify activities.',
+      'presentationJoinUs': 'Join us!',
+      'presentationLearnMore': 'To learn more about our activities and join the RCT community:',
+      'presentationBlog': 'Official blog',
+      'presentationInstagram': 'Instagram',
+      'presentationFacebook': 'Facebook',
       'createSeries': 'Series creation',
       'themeTooltip': 'Change theme (Light / Dark / High contrast)',
       'themeLight': 'Light',
@@ -493,7 +505,7 @@ class AppLocalizations {
       'noEventInHistory': 'لا أحداث في السجل',
       'noNews': 'لا أخبار حالياً',
       'historyTitle': 'تاريخ النادي',
-      'presentationTitle': 'عرض النادي',
+      'presentationTitle': 'عرض نادي الجري تونس',
       'required': 'مطلوب',
       'cancel': 'إلغاء',
       'save': 'حفظ',
@@ -542,32 +554,34 @@ class AppLocalizations {
       'cin': 'رقم البطاقة',
       'title': 'العنوان',
       'group': 'المجموعة',
-      'presentationHistorySection': 'التاريخ',
-      'presentationHistoryContent': 'نادي الجري تونس نادي للجري تأسس في تونس. '
-          'منذ تأسيسه، يجمع النادي عشاق الجري '
-          'لتبادل لحظات الرياضة والإنجاز والود.',
+      'presentationWhoWeAre': 'من نحن؟',
+      'presentationWhoWeAreContent': 'نادي الجري تونس (RCT) جمعية رياضية تونسية شغوفة بالجري والرياضة بشكل عام. تأسس لتعزيز ممارسة الجري المتاحة للجميع، بغض النظر عن المستوى، يقدم RCT جلسات تدريبية مناسبة أو مخصصة لأعضائه.',
+      'presentationMotto': '"نادي الجري تونس... أكثر من نادي... عائلة."',
+      'presentationHistorySection': 'تاريخ النادي',
+      'presentationHistoryContent': 'منذ تأسيسه، التزم RCT ببناء مجتمع متماسك حول الجري. على مر السنين، نظم النادي وشارك في أحداث عديدة، مما عزز دوره في تعزيز الرياضة في تونس.',
       'presentationValuesSection': 'قيمنا',
-      'presentationValuesContent': '• الشغف: حب الجري يجمعنا\n'
-          '• التضامن: الجميع يتقدم بوتيرته، معاً\n'
-          '• الاحترام: للنفس والآخرين والبيئة\n'
-          '• التجاوز: تحديد الأهداف وتحقيقها',
-      'presentationObjectivesSection': 'الأهداف',
-      'presentationObjectivesContent': '• تشجيع ممارسة الجري في تونس\n'
-          '• تنظيم خرجات ومناسبات منتظمة\n'
-          '• إنشاء مجتمع مرحب بالعدائين\n'
-          '• تمثيل النادي في السباقات الوطنية',
-      'presentationCharterSection': 'الميثاق',
-      'presentationCharterContent': 'بالانضمام إلى نادي الجري تونس، يلتزم كل عضو بـ:\n'
-          '• احترام أوقات وأماكن اللقاءات\n'
-          '• الالتزام بالمواعيد والتنبيه في حالة الغياب\n'
-          '• اعتماد سلوك مرحب تجاه الجميع\n'
-          '• المشاركة الفاعلة في حياة النادي',
+      'presentationValuesContent': '• إمكانية الوصول: توفير الفرصة للجميع لممارسة الجري، مهما كان مستواهم.\n'
+          '• التضامن: تشجيع المساعدة والدعم المتبادل بين الأعضاء.\n'
+          '• الالتزام: تشجيع المشاركة النشطة في أنشطة النادي والمجتمع.\n'
+          '• الاحترام: تعزيز احترام الآخرين والنفس والبيئة.',
+      'presentationObjectivesSection': 'أهداف النادي',
+      'presentationObjectivesContent': '• تشجيع ممارسة الجري بانتظام.\n'
+          '• تنظيم أحداث رياضية لتجمع المجتمع.\n'
+          '• تقديم جلسات تدريبية ملائمة لاحتياجات كل فرد.\n'
+          '• تعزيز أسلوب حياة صحي ونشط.',
+      'presentationCharterSection': 'الميثاق الأخلاقي',
+      'presentationCharterContent': 'أعد النادي ميثاقًا أخلاقيًا رياضيًا، تمت الموافقة عليه بالإجماع، ويعكس التزامه بممارسات رياضية مسؤولة ومحترمة.',
       'presentationGroupsSection': 'تنظيم المجموعات',
-      'presentationGroupsContent': 'النادي منظم في عدة مجموعات حسب المستويات والأهداف:\n'
-          '• المبتدئون: اكتشاف الجري\n'
-          '• المتوسطون: التقدم والانتظام\n'
-          '• المتقدمون: الأداء والمنافسات\n'
-          'كل مجموعة لها مسؤول وبرنامج ملائم.',
+      'presentationGroupsContent': 'ينظم RCT أنشطته في مجموعات مختلفة لتلبية احتياجات أعضائه المتنوعة:\n'
+          '• المبتدئون: لمن يريد اكتشاف الجري بلطف.\n'
+          '• المتوسطون: للعدائين ذوي الخبرة الراغبين في التقدم.\n'
+          '• المتقدمون: للعدائين ذوي الخبرة الساعين لأداء محدد.\n'
+          'تُنظم أيضًا جلسات خاصة مثل تدريب المسبح أو رحلات الدراجات لتنويع الأنشطة.',
+      'presentationJoinUs': 'انضم إلينا!',
+      'presentationLearnMore': 'لمعرفة المزيد عن أنشطتنا والانضمام إلى مجتمع RCT:',
+      'presentationBlog': 'المدونة الرسمية',
+      'presentationInstagram': 'إنستغرام',
+      'presentationFacebook': 'فيسبوك',
       'createSeries': 'إنشاء متسلسل',
       'themeTooltip': 'تغيير السمة (فاتح / داكن / تباين عالٍ)',
       'themeLight': 'فاتح',
@@ -647,7 +661,7 @@ class AppLocalizations {
       'noEventInHistory': 'Nessun evento nella cronologia',
       'noNews': 'Nessuna notizia al momento',
       'historyTitle': 'Storia del club',
-      'presentationTitle': 'Presentazione del club',
+      'presentationTitle': 'Presentazione Running Club Tunis',
       'required': 'Obbligatorio',
       'cancel': 'Annulla',
       'save': 'Salva',
@@ -696,32 +710,34 @@ class AppLocalizations {
       'cin': 'Documento',
       'title': 'Titolo',
       'group': 'Gruppo',
-      'presentationHistorySection': 'Storia',
-      'presentationHistoryContent': 'Running Club Tunis è un club di corsa fondato a Tunisi. '
-          'Dalla sua creazione, il club riunisce appassionati di running '
-          'per condividere momenti di sport, superamento e convivialità.',
+      'presentationWhoWeAre': 'Chi siamo?',
+      'presentationWhoWeAreContent': 'Running Club Tunis (RCT) è un\'associazione sportiva tunisina appassionata di corsa e sport in generale. Fondato per promuovere la corsa accessibile a tutti, qualunque sia il livello, il RCT offre sessioni di coaching adattate o personalizzate per i suoi membri.',
+      'presentationMotto': '"Running Club Tunis... Più di un club... una famiglia."',
+      'presentationHistorySection': 'Storia del club',
+      'presentationHistoryContent': 'Dalla sua creazione, il RCT si è impegnato a creare una comunità unita attorno alla corsa. Nel corso degli anni, il club ha organizzato e partecipato a numerosi eventi, rafforzando il suo ruolo nella promozione dello sport in Tunisia.',
       'presentationValuesSection': 'I nostri valori',
-      'presentationValuesContent': '• Passione: L\'amore per la corsa ci unisce\n'
-          '• Solidarietà: Ognuno avanza al proprio ritmo, insieme\n'
-          '• Rispetto: Per sé, gli altri e l\'ambiente\n'
-          '• Superamento: Porsi obiettivi e raggiungerli',
-      'presentationObjectivesSection': 'Obiettivi',
-      'presentationObjectivesContent': '• Promuovere la pratica della corsa a Tunisi\n'
-          '• Organizzare uscite regolari e eventi\n'
-          '• Creare una comunità di corridori accogliente\n'
-          '• Rappresentare il club nelle gare nazionali',
-      'presentationCharterSection': 'Carta',
-      'presentationCharterContent': 'Unendosi al Running Club Tunis, ogni membro si impegna a:\n'
-          '• Rispettare orari e luoghi di incontro\n'
-          '• Essere puntuale e avvisare in caso di assenza\n'
-          '• Adottare un atteggiamento accogliente verso tutti\n'
-          '• Partecipare attivamente alla vita del club',
+      'presentationValuesContent': '• Accessibilità: Offrire a tutti la possibilità di praticare la corsa, qualunque sia il livello.\n'
+          '• Solidarietà: Favorire il sostegno reciproco tra i membri.\n'
+          '• Impegno: Incoraggiare la partecipazione attiva nelle attività del club e nella comunità.\n'
+          '• Rispetto: Promuovere il rispetto per gli altri, sé stessi e l\'ambiente.',
+      'presentationObjectivesSection': 'Obiettivi del club',
+      'presentationObjectivesContent': '• Incoraggiare la pratica regolare della corsa.\n'
+          '• Organizzare eventi sportivi per riunire la comunità.\n'
+          '• Offrire sessioni di allenamento adattate alle esigenze di ciascuno.\n'
+          '• Promuovere uno stile di vita sano e attivo.',
+      'presentationCharterSection': 'Carta etica',
+      'presentationCharterContent': 'Il club ha elaborato una carta etica sportiva, approvata all\'unanimità, che riflette il suo impegno verso pratiche sportive responsabili e rispettose.',
       'presentationGroupsSection': 'Organizzazione dei gruppi',
-      'presentationGroupsContent': 'Il club è organizzato in diversi gruppi in base ai livelli e agli obiettivi:\n'
-          '• Principianti: Scoperta del running\n'
-          '• Intermedi: Progressione e regolarità\n'
-          '• Confermati: Prestazioni e competizioni\n'
-          'Ogni gruppo ha un responsabile e un programma adatto.',
+      'presentationGroupsContent': 'Il RCT struttura le sue attività in diversi gruppi per rispondere alle esigenze variate dei suoi membri:\n'
+          '• Principianti: Per chi vuole scoprire la corsa con dolcezza.\n'
+          '• Intermedi: Per i corridori con una certa esperienza che desiderano progredire.\n'
+          '• Avanzati: Per i corridori esperti che mirano a prestazioni specifiche.\n'
+          'Sono inoltre organizzate sessioni specifiche, come allenamenti in piscina o uscite in bici, per diversificare le attività.',
+      'presentationJoinUs': 'Unisciti a noi!',
+      'presentationLearnMore': 'Per saperne di più sulle nostre attività e unirti alla comunità RCT:',
+      'presentationBlog': 'Blog ufficiale',
+      'presentationInstagram': 'Instagram',
+      'presentationFacebook': 'Facebook',
       'createSeries': 'Creazione in serie',
       'themeTooltip': 'Cambia tema (Chiaro / Scuro / Alto contrasto)',
       'themeLight': 'Chiaro',
@@ -801,7 +817,7 @@ class AppLocalizations {
       'noEventInHistory': 'Keine Ereignisse in der Chronik',
       'noNews': 'Keine Neuigkeiten',
       'historyTitle': 'Vereinsgeschichte',
-      'presentationTitle': 'Vereinspräsentation',
+      'presentationTitle': 'Präsentation Running Club Tunis',
       'required': 'Erforderlich',
       'cancel': 'Abbrechen',
       'save': 'Speichern',
@@ -850,32 +866,34 @@ class AppLocalizations {
       'cin': 'Ausweisnummer',
       'title': 'Titel',
       'group': 'Gruppe',
-      'presentationHistorySection': 'Geschichte',
-      'presentationHistoryContent': 'Running Club Tunis ist ein in Tunis gegründeter Laufverein. '
-          'Seit seiner Gründung bringt der Verein Laufbegeisterte zusammen '
-          'um Momente des Sports, der Leistung und der Geselligkeit zu teilen.',
+      'presentationWhoWeAre': 'Wer sind wir?',
+      'presentationWhoWeAreContent': 'Running Club Tunis (RCT) ist ein tunesischer Sportverein, der sich für Laufen und Sport im Allgemeinen begeistert. Gegründet, um das Laufen für alle zugänglich zu machen, unabhängig vom Niveau, bietet der RCT angepasste oder personalisierte Coaching-Sitzungen für seine Mitglieder an.',
+      'presentationMotto': '"Running Club Tunis... Mehr als ein Verein... eine Familie."',
+      'presentationHistorySection': 'Vereinsgeschichte',
+      'presentationHistoryContent': 'Seit seiner Gründung hat sich der RCT verpflichtet, eine feste Gemeinschaft rund ums Laufen aufzubauen. Im Laufe der Jahre hat der Verein zahlreiche Veranstaltungen organisiert und daran teilgenommen und so seine Rolle bei der Förderung des Sports in Tunesien gestärkt.',
       'presentationValuesSection': 'Unsere Werte',
-      'presentationValuesContent': '• Leidenschaft: Die Liebe zum Laufen verbindet uns\n'
-          '• Solidarität: Jeder macht in seinem Tempo Fortschritte, gemeinsam\n'
-          '• Respekt: Für sich selbst, andere und die Umwelt\n'
-          '• Überwindung: Ziele setzen und erreichen',
-      'presentationObjectivesSection': 'Ziele',
-      'presentationObjectivesContent': '• Laufen in Tunis fördern\n'
-          '• Regelmäßige Ausflüge und Veranstaltungen organisieren\n'
-          '• Eine herzliche Läufergemeinschaft schaffen\n'
-          '• Den Verein bei nationalen Rennen vertreten',
-      'presentationCharterSection': 'Charta',
-      'presentationCharterContent': 'Mit dem Beitritt zum Running Club Tunis verpflichtet sich jedes Mitglied:\n'
-          '• Treffzeiten und -orte zu respektieren\n'
-          '• Pünktlich zu sein und bei Abwesenheit Bescheid zu geben\n'
-          '• Eine einladende Haltung gegenüber allen zu zeigen\n'
-          '• Aktiv am Vereinsleben teilzunehmen',
+      'presentationValuesContent': '• Zugänglichkeit: Jedem die Möglichkeit bieten, Laufen zu praktizieren, unabhängig vom Niveau.\n'
+          '• Solidarität: Gegenseitige Unterstützung unter den Mitgliedern fördern.\n'
+          '• Engagement: Aktive Teilnahme an Vereinsaktivitäten und der Gemeinschaft fördern.\n'
+          '• Respekt: Respekt für andere, sich selbst und die Umwelt fördern.',
+      'presentationObjectivesSection': 'Vereinsziele',
+      'presentationObjectivesContent': '• Regelmäßige Laufpraxis fördern.\n'
+          '• Sportveranstaltungen organisieren, um die Gemeinschaft zusammenzubringen.\n'
+          '• Angepasste Trainingseinheiten für die Bedürfnisse jedes Einzelnen anbieten.\n'
+          '• Einen gesunden und aktiven Lebensstil fördern.',
+      'presentationCharterSection': 'Ethische Charta',
+      'presentationCharterContent': 'Der Verein hat eine sportliche ethische Charta erarbeitet, einstimmig genehmigt, die sein Engagement für verantwortungsvolle und respektvolle Sportpraktiken widerspiegelt.',
       'presentationGroupsSection': 'Gruppenorganisation',
-      'presentationGroupsContent': 'Der Verein ist je nach Niveau und Zielen in mehrere Gruppen organisiert:\n'
-          '• Anfänger: Laufen entdecken\n'
-          '• Fortgeschrittene: Fortschritt und Regelmäßigkeit\n'
-          '• Bestätigte: Leistung und Wettkämpfe\n'
-          'Jede Gruppe hat einen Leiter und ein angepasstes Programm.',
+      'presentationGroupsContent': 'Der RCT strukturiert seine Aktivitäten in verschiedenen Gruppen, um die vielfältigen Bedürfnisse seiner Mitglieder zu erfüllen:\n'
+          '• Anfänger: Für diejenigen, die das Laufen sanft entdecken möchten.\n'
+          '• Fortgeschrittene: Für Läufer mit etwas Erfahrung, die sich verbessern möchten.\n'
+          '• Erfahren: Für erfahrene Läufer mit spezifischen Leistungszielen.\n'
+          'Spezifische Sitzungen wie Schwimmtraining oder Radausflüge werden ebenfalls organisiert, um die Aktivitäten zu diversifizieren.',
+      'presentationJoinUs': 'Werden Sie Mitglied!',
+      'presentationLearnMore': 'Erfahren Sie mehr über unsere Aktivitäten und treten Sie der RCT-Community bei:',
+      'presentationBlog': 'Offizieller Blog',
+      'presentationInstagram': 'Instagram',
+      'presentationFacebook': 'Facebook',
       'createSeries': 'Serienerstellung',
       'themeTooltip': 'Theme ändern (Hell / Dunkel / Hoher Kontrast)',
       'themeLight': 'Hell',
