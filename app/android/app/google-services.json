@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "228140996296",
+    "project_id": "running-club-tunis",
+    "storage_bucket": "running-club-tunis.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228140996296:android:7b612f56967d199a39f7fd",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzkLEM077SIiTQarTUf5EaW6TxfvptRt4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
