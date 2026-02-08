@@ -15,4 +15,11 @@ class MatchingService {
         .map((e) => PartnerMatch.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
+  /// Envoie une invitation à courir au partenaire (notification push).
+  Future<void> inviterPartenaire(String targetUserId) async {
+    final response =
+        await _client.post('/api/matching/inviter/$targetUserId');
+    _client.checkResponse(response);
+  }
 }

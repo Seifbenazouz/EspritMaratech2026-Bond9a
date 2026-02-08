@@ -28,6 +28,7 @@ public class MatchingService {
     private final SessionCourseRepository sessionCourseRepository;
     private final ParticipationRepository participationRepository;
     private final UserRepository userRepository;
+    private final FcmService fcmService;
 
     private static final int MIN_SCORE_MATCH = 25;
     private static final int MAX_RESULTS = 15;
@@ -89,6 +90,31 @@ public class MatchingService {
 
         matches.sort((a, b) -> Integer.compare(b.getScore(), a.getScore()));
         return matches.stream().limit(MAX_RESULTS).collect(Collectors.toList());
+    }
+
+    /**
+     * Envoie une notification push au partenaire : "X vous invite à courir !"
+     */
+    public void inviterPartenaire(UUID fromAdherentId, UUID targetAdherentId) {
+        User fromUser = userRepository.findById(fromAdherentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Utilisateur", fromAdherentId));
+        User targetUser = userRepository.findById(targetAdherentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Utilisateur", targetAdherentId));
+
+        if (fromUser.getRole() != Role.ADHERENT || targetUser.getRole() != Role.ADHERENT) {
+            return;
+        }
+
+        String fromName = (fromUser.getPrenom() != null ? fromUser.getPrenom() + " " : "") + fromUser.getNom();
+        String titre = "Invitation à courir";
+        String body = fromName + " vous invite à courir !";
+
+        if (targetUser.getFcmToken() != null && !targetUser.getFcmToken().isBlank()) {
+            fcmService.sendToTokens(List.of(targetUser.getFcmToken()), titre, body);
+            log.info("Matching: invitation envoyée de {} vers {}", fromAdherentId, targetAdherentId);
+        } else {
+            log.warn("Matching: {} n'a pas de token FCM - notification non envoyée", targetAdherentId);
+        }
     }
 
     private Double computeAveragePace(UUID adherentId) {

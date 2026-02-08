@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * API de matching partenaires running (adhérents uniquement).
@@ -31,5 +32,16 @@ public class MatchingController {
         User currentUser = userRepository.findByNom(userDetails.getUsername())
                 .orElseThrow();
         return ResponseEntity.ok(matchingService.findPartners(currentUser.getId()));
+    }
+
+    @PreAuthorize("hasRole('ADHERENT')")
+    @PostMapping("/inviter/{targetUserId}")
+    public ResponseEntity<Void> inviterPartenaire(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @PathVariable UUID targetUserId) {
+        User currentUser = userRepository.findByNom(userDetails.getUsername())
+                .orElseThrow();
+        matchingService.inviterPartenaire(currentUser.getId(), targetUserId);
+        return ResponseEntity.ok().build();
     }
 }

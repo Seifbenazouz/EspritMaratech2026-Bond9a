@@ -124,24 +124,47 @@ class _ProgrammesScreenState extends State<ProgrammesScreen> {
     }
     if (_items.isEmpty) {
       return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.fitness_center, size: 64, color: Colors.grey.shade400),
-            const SizedBox(height: 16),
-            Text(
-              AppLocalizations.of(context).noProgramme,
-              style: TextStyle(color: Colors.grey.shade600),
-            ),
-            if (_canManage) ...[
-              const SizedBox(height: 16),
-              FilledButton.icon(
-                onPressed: () => _openForm(context),
-                icon: const Icon(Icons.add),
-                label: Text(AppLocalizations.of(context).createProgramme),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade50,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Icon(
+                  Icons.fitness_center,
+                  size: 64,
+                  color: Colors.blue.shade300,
+                ),
               ),
+              const SizedBox(height: 20),
+              Text(
+                AppLocalizations.of(context).noProgramme,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Créez un programme d\'entraînement pour vos adhérents',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.grey.shade600),
+              ),
+              if (_canManage) ...[
+                const SizedBox(height: 24),
+                FilledButton.icon(
+                  onPressed: () => _openForm(context),
+                  icon: const Icon(Icons.add),
+                  label: Text(AppLocalizations.of(context).createProgramme),
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       );
     }
@@ -170,9 +193,13 @@ class _ProgrammesScreenState extends State<ProgrammesScreen> {
                 final p = _items[index];
                 return Card(
                   margin: const EdgeInsets.only(bottom: 12),
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   child: InkWell(
                     onTap: () => _openDetail(p),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(16),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
@@ -180,21 +207,40 @@ class _ProgrammesScreenState extends State<ProgrammesScreen> {
                         children: [
                           Row(
                             children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primaryContainer,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Icon(
+                                  Icons.fitness_center,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  size: 24,
+                                ),
+                              ),
+                              const SizedBox(width: 12),
                               Expanded(
                                 child: Text(
                                   p.titre,
                                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                         fontWeight: FontWeight.bold,
                                       ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
                           ),
+                          const SizedBox(height: 12),
                           if (p.groupe != null) ...[
-                            const SizedBox(height: 6),
                             Row(
                               children: [
-                                Icon(Icons.groups_outlined, size: 16, color: Colors.grey.shade600),
+                                Icon(
+                                  Icons.groups_outlined,
+                                  size: 16,
+                                  color: Colors.grey.shade600,
+                                ),
                                 const SizedBox(width: 6),
                                 Text(
                                   p.groupe!.nom,
@@ -204,31 +250,39 @@ class _ProgrammesScreenState extends State<ProgrammesScreen> {
                                 ),
                               ],
                             ),
+                            const SizedBox(height: 8),
                           ],
                           if (p.dateDebut != null || p.dateFin != null) ...[
-                            const SizedBox(height: 4),
                             Row(
                               children: [
-                                Icon(Icons.calendar_today, size: 16, color: Colors.grey.shade600),
+                                Icon(
+                                  Icons.calendar_today,
+                                  size: 16,
+                                  color: Colors.grey.shade600,
+                                ),
                                 const SizedBox(width: 6),
-                                Text(
-                                  p.dateDebut != null && p.dateFin != null
-                                      ? '${_formatDate(p.dateDebut)} → ${_formatDate(p.dateFin)}'
-                                      : _formatDate(p.dateDebut ?? p.dateFin),
-                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                        color: Colors.grey.shade600,
-                                      ),
+                                Expanded(
+                                  child: Text(
+                                    p.dateDebut != null && p.dateFin != null
+                                        ? '${_formatDate(p.dateDebut)} → ${_formatDate(p.dateFin)}'
+                                        : _formatDate(p.dateDebut ?? p.dateFin),
+                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                          color: Colors.grey.shade600,
+                                        ),
+                                  ),
                                 ),
                               ],
                             ),
+                            const SizedBox(height: 8),
                           ],
                           if (p.description != null && p.description!.isNotEmpty) ...[
-                            const SizedBox(height: 8),
                             Text(
                               p.description!.length > 100
                                   ? '${p.description!.substring(0, 100)}...'
                                   : p.description!,
-                              style: Theme.of(context).textTheme.bodyMedium,
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Colors.grey.shade700,
+                                  ),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),

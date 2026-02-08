@@ -190,6 +190,9 @@ class AppLocalizations {
   String get matchingInProgress => _localizedValues[_localeKey]!['matchingInProgress']!;
   String get noPartnerMatch => _localizedValues[_localeKey]!['noPartnerMatch']!;
   String get noPartnerMatchHint => _localizedValues[_localeKey]!['noPartnerMatchHint']!;
+  String get inviterPartenaire => _localizedValues[_localeKey]!['inviterPartenaire']!;
+  String get invitationEnvoyee => _localizedValues[_localeKey]!['invitationEnvoyee']!;
+  String get invitationErreur => _localizedValues[_localeKey]!['invitationErreur']!;
   String get matchFound => _localizedValues[_localeKey]!['matchFound']!;
   String get noMembers => _localizedValues[_localeKey]!['noMembers']!;
   String get noAdherentAvailable => _localizedValues[_localeKey]!['noAdherentAvailable']!;
@@ -380,6 +383,9 @@ class AppLocalizations {
       'matchingInProgress': 'Recherche de partenaires en cours...',
       'noPartnerMatch': 'Aucun partenaire trouvé pour le moment.',
       'noPartnerMatchHint': 'Rejoignez un groupe et participez aux événements pour obtenir des suggestions.',
+      'inviterPartenaire': 'Inviter à courir',
+      'invitationEnvoyee': 'Invitation envoyée !',
+      'invitationErreur': 'Impossible d\'envoyer l\'invitation',
       'matchFound': 'Matchs trouvés !',
       'noMembers': 'Aucun membre',
       'noAdherentAvailable': 'Aucun adhérent disponible à ajouter',
@@ -569,6 +575,9 @@ class AppLocalizations {
       'matchingInProgress': 'Searching for partners...',
       'noPartnerMatch': 'No partner found at the moment.',
       'noPartnerMatchHint': 'Join a group and participate in events to get suggestions.',
+      'inviterPartenaire': 'Invite to run',
+      'invitationEnvoyee': 'Invitation sent!',
+      'invitationErreur': 'Unable to send invitation',
       'matchFound': 'Matches found!',
       'noMembers': 'No members',
       'noAdherentAvailable': 'No adherent available to add',
@@ -758,6 +767,9 @@ class AppLocalizations {
       'matchingInProgress': 'جاري البحث عن شركاء...',
       'noPartnerMatch': 'لم يتم العثور على شريك في الوقت الحالي.',
       'noPartnerMatchHint': 'انضم إلى مجموعة وشارك في الفعاليات للحصول على اقتراحات.',
+      'inviterPartenaire': 'دعوة للجري',
+      'invitationEnvoyee': 'تم إرسال الدعوة!',
+      'invitationErreur': 'تعذر إرسال الدعوة',
       'matchFound': 'تم العثور على تطابقات!',
       'noMembers': 'لا يوجد أعضاء',
       'noAdherentAvailable': 'لا يوجد أعضاء متاحين للإضافة',
@@ -947,6 +959,9 @@ class AppLocalizations {
       'matchingInProgress': 'Ricerca partner in corso...',
       'noPartnerMatch': 'Nessun partner trovato al momento.',
       'noPartnerMatchHint': 'Unisciti a un gruppo e partecipa agli eventi per ottenere suggerimenti.',
+      'inviterPartenaire': 'Invita a correre',
+      'invitationEnvoyee': 'Invito inviato!',
+      'invitationErreur': 'Impossibile inviare l\'invito',
       'matchFound': 'Match trovati!',
       'noMembers': 'Nessun membro',
       'noAdherentAvailable': 'Nessun aderente disponibile da aggiungere',
@@ -1136,6 +1151,9 @@ class AppLocalizations {
       'matchingInProgress': 'Partnersuche läuft...',
       'noPartnerMatch': 'Derzeit kein Partner gefunden.',
       'noPartnerMatchHint': 'Treten Sie einer Gruppe bei und nehmen Sie an Veranstaltungen teil.',
+      'inviterPartenaire': 'Zum Laufen einladen',
+      'invitationEnvoyee': 'Einladung gesendet!',
+      'invitationErreur': 'Einladung konnte nicht gesendet werden',
       'matchFound': 'Matches gefunden!',
       'noMembers': 'Keine Mitglieder',
       'noAdherentAvailable': 'Kein Adherent zum Hinzufügen verfügbar',

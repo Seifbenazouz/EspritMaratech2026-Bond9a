@@ -73,6 +73,27 @@ class _MatchingPartenaireScreenState extends State<MatchingPartenaireScreen> {
     }
   }
 
+  Future<void> _invitePartner(String partnerId) async {
+    try {
+      await _service.inviterPartenaire(partnerId);
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context).invitationEnvoyee),
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context).invitationErreur),
+          backgroundColor: Theme.of(context).colorScheme.errorContainer,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -267,7 +288,10 @@ class _MatchingPartenaireScreenState extends State<MatchingPartenaireScreen> {
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final p = _items[index];
-                  return _PartnerCard(partner: p);
+                  return _PartnerCard(
+                    partner: p,
+                    onInvite: _invitePartner,
+                  );
                 },
                 childCount: _items.length,
               ),
@@ -281,8 +305,12 @@ class _MatchingPartenaireScreenState extends State<MatchingPartenaireScreen> {
 
 class _PartnerCard extends StatelessWidget {
   final PartnerMatch partner;
+  final Future<void> Function(String partnerId) onInvite;
 
-  const _PartnerCard({required this.partner});
+  const _PartnerCard({
+    required this.partner,
+    required this.onInvite,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -405,6 +433,20 @@ class _PartnerCard extends StatelessWidget {
                           ),
                     ),
                   ],
+                  const SizedBox(height: 16),
+                  FilledButton.icon(
+                    onPressed: partner.id.isEmpty
+                        ? null
+                        : () => onInvite(partner.id),
+                    icon: const Icon(Icons.directions_run_rounded, size: 20),
+                    label: Text(AppLocalizations.of(context).inviterPartenaire),
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
