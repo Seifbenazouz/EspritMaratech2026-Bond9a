@@ -127,6 +127,67 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
         '${d.hour.toString().padLeft(2, '0')}:${d.minute.toString().padLeft(2, '0')}';
   }
 
+  Widget _buildCreateSeriesCard(AppLocalizations l10n) {
+    final scheme = Theme.of(context).colorScheme;
+    final primary = scheme.primary;
+    final secondary = scheme.secondary;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+      child: NeumorphicCard(
+        padding: const EdgeInsets.all(16),
+        margin: EdgeInsets.zero,
+        onTap: () => _navigateToSerie(context),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    primary.withOpacity(0.2),
+                    secondary.withOpacity(0.15),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Icon(Icons.repeat_rounded, size: 28, color: primary),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.createSeries,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: primary,
+                        ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    l10n.createSeriesSubtitle,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: scheme.onSurfaceVariant,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 16,
+              color: scheme.onSurfaceVariant.withOpacity(0.6),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildFilters(AppLocalizations l10n) {
     final scheme = Theme.of(context).colorScheme;
     final primary = scheme.primary;
@@ -265,15 +326,12 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
         title: Text(AppLocalizations.of(context).events),
         actions: [
           if (_canManage)
-            FilledButton.tonalIcon(
+            IconButton.filledTonal(
               onPressed: () => _navigateToSerie(context),
-              icon: const Icon(Icons.repeat_rounded, size: 20),
-              label: Text(AppLocalizations.of(context).createSeries),
-              style: FilledButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              ),
+              icon: const Icon(Icons.repeat_rounded),
+              tooltip: AppLocalizations.of(context).createSeries,
             ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 4),
           IconButton.filledTonal(
             icon: const Icon(Icons.refresh_rounded),
             onPressed: _loading ? null : _load,
@@ -477,6 +535,10 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
               ),
             ),
           ),
+          if (_canManage)
+            SliverToBoxAdapter(
+              child: _buildCreateSeriesCard(l10n),
+            ),
           SliverToBoxAdapter(
             child: _buildFilters(l10n),
           ),

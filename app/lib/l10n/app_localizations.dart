@@ -121,6 +121,7 @@ class AppLocalizations {
   String newsCount(int n) => _localizedValues[_localeKey]!['newsCount']!.replaceAll('{n}', '$n');
   String get newsEmptySubtitle => _localizedValues[_localeKey]!['newsEmptySubtitle']!;
   String get createSeries => _localizedValues[_localeKey]!['createSeries']!;
+  String get createSeriesSubtitle => _localizedValues[_localeKey]!['createSeriesSubtitle']!;
   String get themeTooltip => _localizedValues[_localeKey]!['themeTooltip']!;
   String get themeLight => _localizedValues[_localeKey]!['themeLight']!;
   String get themeDark => _localizedValues[_localeKey]!['themeDark']!;
@@ -330,6 +331,7 @@ class AppLocalizations {
       'presentationInstagram': 'Instagram',
       'presentationFacebook': 'Facebook',
       'createSeries': 'Création en série',
+      'createSeriesSubtitle': 'Créer plusieurs événements à la fois',
       'themeTooltip': 'Changer le thème (Clair / Sombre / Contraste élevé)',
       'themeLight': 'Clair',
       'themeDark': 'Sombre',
@@ -538,6 +540,7 @@ class AppLocalizations {
       'presentationInstagram': 'Instagram',
       'presentationFacebook': 'Facebook',
       'createSeries': 'Series creation',
+      'createSeriesSubtitle': 'Create multiple events at once',
       'themeTooltip': 'Change theme (Light / Dark / High contrast)',
       'themeLight': 'Light',
       'themeDark': 'Dark',
@@ -746,6 +749,7 @@ class AppLocalizations {
       'presentationInstagram': 'إنستغرام',
       'presentationFacebook': 'فيسبوك',
       'createSeries': 'إنشاء متسلسل',
+      'createSeriesSubtitle': 'إنشاء عدة أحداث دفعة واحدة',
       'themeTooltip': 'تغيير السمة (فاتح / داكن / تباين عالٍ)',
       'themeLight': 'فاتح',
       'themeDark': 'داكن',
@@ -954,6 +958,7 @@ class AppLocalizations {
       'presentationInstagram': 'Instagram',
       'presentationFacebook': 'Facebook',
       'createSeries': 'Creazione in serie',
+      'createSeriesSubtitle': 'Crea più eventi in una volta',
       'themeTooltip': 'Cambia tema (Chiaro / Scuro / Alto contrasto)',
       'themeLight': 'Chiaro',
       'themeDark': 'Scuro',
@@ -1162,6 +1167,7 @@ class AppLocalizations {
       'presentationInstagram': 'Instagram',
       'presentationFacebook': 'Facebook',
       'createSeries': 'Serienerstellung',
+      'createSeriesSubtitle': 'Mehrere Veranstaltungen auf einmal erstellen',
       'themeTooltip': 'Theme ändern (Hell / Dunkel / Hoher Kontrast)',
       'themeLight': 'Hell',
       'themeDark': 'Dunkel',
