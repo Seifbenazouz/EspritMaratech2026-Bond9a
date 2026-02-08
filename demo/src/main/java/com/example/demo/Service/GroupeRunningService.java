@@ -2,7 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.dto.GroupeRunningRequest;
 import com.example.demo.entity.GroupeRunning;
+import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
+import com.example.demo.exception.ForbiddenGroupException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.GroupeRunningRepository;
 import com.example.demo.repository.UserRepository;
@@ -41,6 +43,29 @@ public class GroupeRunningService {
 
     public Page<GroupeRunning> findByMembreId(UUID adherentId, Pageable pageable) {
         return groupeRunningRepository.findByMembreId(adherentId, pageable);
+    }
+
+    /**
+     * Groupes accessibles par l'utilisateur connecté :
+     * - ADMIN_PRINCIPAL : tous les groupes
+     * - ADMIN_GROUPE : uniquement le(s) groupe(s) dont il est responsable
+     */
+    public Page<GroupeRunning> findMesGroupes(User currentUser, Pageable pageable) {
+        if (currentUser.getRole() == Role.ADMIN_PRINCIPAL) {
+            return groupeRunningRepository.findByOrderByNomAsc(pageable);
+        }
+        if (currentUser.getRole() == Role.ADMIN_GROUPE) {
+            return groupeRunningRepository.findByResponsableIdOrderByNomAsc(currentUser.getId(), pageable);
+        }
+        return Page.empty(pageable);
+    }
+
+    private void ensureCanManageGroupe(GroupeRunning groupe, User currentUser) {
+        if (currentUser.getRole() == Role.ADMIN_GROUPE) {
+            if (groupe.getResponsable() == null || !groupe.getResponsable().getId().equals(currentUser.getId())) {
+                throw new ForbiddenGroupException("Vous n'êtes pas le responsable de ce groupe. Vous ne pouvez gérer que le groupe dont vous êtes responsable.");
+            }
+        }
     }
 
     @Transactional
@@ -97,8 +122,9 @@ public class GroupeRunningService {
     }
 
     @Transactional
-    public GroupeRunning addMembre(Long groupeId, UUID adherentId) {
+    public GroupeRunning addMembre(Long groupeId, UUID adherentId, User currentUser) {
         GroupeRunning groupe = findById(groupeId);
+        ensureCanManageGroupe(groupe, currentUser);
         User user = userRepository.findById(adherentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Utilisateur", adherentId));
         boolean added = false;
@@ -121,8 +147,9 @@ public class GroupeRunningService {
     }
 
     @Transactional
-    public GroupeRunning removeMembre(Long groupeId, UUID adherentId) {
+    public GroupeRunning removeMembre(Long groupeId, UUID adherentId, User currentUser) {
         GroupeRunning groupe = findById(groupeId);
+        ensureCanManageGroupe(groupe, currentUser);
         groupe.getMembres().removeIf(u -> u.getId().equals(adherentId));
         return groupeRunningRepository.save(groupe);
     }

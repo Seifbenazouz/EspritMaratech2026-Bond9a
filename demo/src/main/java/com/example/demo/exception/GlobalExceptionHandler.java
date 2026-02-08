@@ -52,4 +52,12 @@ public class GlobalExceptionHandler {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Map.of("error", e.getMessage()));
     }
+
+    @ExceptionHandler(value = ForbiddenGroupException.class, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, String>> handleForbiddenGroup(ForbiddenGroupException e) {
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Map.of("error", e.getMessage()));
+    }
 }

@@ -23,5 +23,7 @@ public interface GroupeRunningRepository extends JpaRepository<GroupeRunning, Lo
     @Query("SELECT g FROM GroupeRunning g JOIN g.membres m WHERE m.id = :adherentId")
     Page<GroupeRunning> findByMembreId(UUID adherentId, Pageable pageable);
 
+    Page<GroupeRunning> findByResponsableIdOrderByNomAsc(UUID responsableId, Pageable pageable);
+
     boolean existsByResponsableId(UUID responsableId);
 }
