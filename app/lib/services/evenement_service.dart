@@ -11,7 +11,7 @@ class EvenementService {
   /// Liste tous les événements (auth requise)
   Future<PageResponse<Evenement>> getAll({
     int page = 0,
-    int size = 20,
+    int size = 50,
   }) async {
     final response = await _client.get(
       '/api/evenements',
@@ -56,6 +56,26 @@ class EvenementService {
   Future<void> delete(int id) async {
     final response = await _client.delete('/api/evenements/$id');
     _client.checkResponse(response);
+  }
+
+  /// Événements passés (date < now) pour l'historique
+  Future<PageResponse<Evenement>> getPastEvents({
+    int page = 0,
+    int size = 200,
+  }) async {
+    final now = DateTime.now().toUtc().toIso8601String();
+    final response = await _client.get(
+      '/api/evenements/search',
+      queryParams: {
+        'debut': '1970-01-01T00:00:00Z',
+        'fin': now,
+        'page': page.toString(),
+        'size': size.toString(),
+      },
+    );
+    _client.checkResponse(response);
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    return PageResponse.fromJson(json, (m) => Evenement.fromJson(m));
   }
 
   /// Événements par groupe

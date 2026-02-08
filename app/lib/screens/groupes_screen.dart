@@ -4,6 +4,7 @@ import '../models/groupe_running.dart';
 import '../models/login_response.dart';
 import '../services/groupe_service.dart';
 import 'groupe_detail_screen.dart';
+import 'groupe_form_screen.dart';
 
 /// Écran liste des groupes de running.
 /// Visible pour ADMIN_PRINCIPAL et ADMIN_GROUPE (gestion des membres).
@@ -15,6 +16,11 @@ class GroupesScreen extends StatefulWidget {
   static bool canManageGroupes(LoginResponse? user) {
     if (user?.role == null) return false;
     return user!.role == Role.ADMIN_PRINCIPAL || user.role == Role.ADMIN_GROUPE;
+  }
+
+  /// Seul ADMIN_PRINCIPAL peut créer/éditer les groupes.
+  static bool canCreateEditGroupes(LoginResponse? user) {
+    return user?.role == Role.ADMIN_PRINCIPAL;
   }
 
   @override
@@ -39,7 +45,7 @@ class _GroupesScreenState extends State<GroupesScreen> {
       _error = null;
     });
     try {
-      final page = await _service.getAll();
+      final page = await _service.getMesGroupes();
       if (!mounted) return;
       setState(() {
         _items = page.content;
@@ -55,6 +61,14 @@ class _GroupesScreenState extends State<GroupesScreen> {
   }
 
   bool get _canManage => GroupesScreen.canManageGroupes(widget.user);
+  bool get _canCreateEdit => GroupesScreen.canCreateEditGroupes(widget.user);
+
+  void _openCreateGroup() async {
+    final created = await Navigator.of(context).push<bool>(
+      MaterialPageRoute(builder: (_) => const GroupeFormScreen()),
+    );
+    if (created == true && mounted) _load();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +84,13 @@ class _GroupesScreenState extends State<GroupesScreen> {
         ],
       ),
       body: _buildBody(),
+      floatingActionButton: _canCreateEdit
+          ? FloatingActionButton(
+              onPressed: _loading ? null : _openCreateGroup,
+              child: const Icon(Icons.add),
+              tooltip: 'Créer un groupe',
+            )
+          : null,
     );
   }
 
@@ -196,6 +217,7 @@ class _GroupesScreenState extends State<GroupesScreen> {
         builder: (_) => GroupeDetailScreen(
           groupe: groupe,
           canManage: _canManage,
+          canEdit: _canCreateEdit,
         ),
       ),
     );

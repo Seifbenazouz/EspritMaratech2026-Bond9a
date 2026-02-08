@@ -5,6 +5,7 @@ import '../models/evenement.dart';
 import '../models/historique.dart';
 import '../services/evenement_service.dart';
 import '../services/historique_service.dart';
+import '../widgets/neumorphic_card.dart';
 
 /// Une ligne affichée dans l'historique : date + événement (depuis table historique ou événements passés).
 class _HistoriqueRow {
@@ -44,17 +45,21 @@ class _HistoriqueScreenState extends State<HistoriqueScreen> {
     try {
       final now = DateTime.now();
       final historiquePage = await _historiqueService.getHistorique(page: 0, size: 50);
-      final evenementsPage = await _evenementService.getAll(page: 0, size: 100);
+      List<Evenement> pastEventsFromApi = [];
+      try {
+        final evenementsPage = await _evenementService.getPastEvents(page: 0, size: 200);
+        pastEventsFromApi = evenementsPage.content;
+      } catch (_) {
+        // Si non connecté ou erreur API : on affiche uniquement l'historique manuel
+      }
       if (!mounted) return;
 
       final listHistorique = historiquePage.content;
-      final listEvenements = evenementsPage.content;
-
       final idsInHistorique = listHistorique
           .map((h) => h.evenement?.id)
           .whereType<int>()
           .toSet();
-      final pastEvents = listEvenements
+      final pastEvents = pastEventsFromApi
           .where((e) => e.date != null && e.date!.isBefore(now))
           .where((e) => !idsInHistorique.contains(e.id))
           .toList();
@@ -111,21 +116,54 @@ class _HistoriqueScreenState extends State<HistoriqueScreen> {
   }
 
   Widget _buildBody() {
+    final scheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
+
     if (_loading) {
-      return const Center(child: CircularProgressIndicator());
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 56,
+              height: 56,
+              child: CircularProgressIndicator(
+                strokeWidth: 3,
+                color: scheme.primary,
+                backgroundColor: scheme.primaryContainer.withOpacity(0.5),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              '...',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: scheme.onSurfaceVariant,
+                  ),
+            ),
+          ],
+        ),
+      );
     }
     if (_error != null) {
-      final scheme = Theme.of(context).colorScheme;
       return Center(
         child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.error_outline, size: 72, color: scheme.error),
-              const SizedBox(height: 12),
-              Text(
-                AppLocalizations.of(context).error,
+          padding: const EdgeInsets.all(32),
+          child: NeumorphicCard(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: scheme.errorContainer.withOpacity(0.5),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.error_outline_rounded, size: 56, color: scheme.error),
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  l10n.error,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: scheme.error,
                       fontWeight: FontWeight.bold,
@@ -136,122 +174,267 @@ class _HistoriqueScreenState extends State<HistoriqueScreen> {
                 _error!,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: scheme.onSurface,
-                  fontWeight: FontWeight.w500,
+                  color: scheme.onErrorContainer,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
               FilledButton.icon(
                 onPressed: _load,
-                icon: const Icon(Icons.refresh),
-                label: Text(AppLocalizations.of(context).retry),
+                icon: const Icon(Icons.refresh_rounded),
+                label: Text(l10n.retry),
               ),
             ],
           ),
         ),
-      );
+      ),
+    );
     }
     if (_items.isEmpty) {
       return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.history, size: 72, color: Theme.of(context).colorScheme.onSurface),
-            const SizedBox(height: 16),
-            Text(
-              AppLocalizations.of(context).noEventInHistory,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Les événements passés apparaîtront ici.',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.grey.shade500,
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: NeumorphicCard(
+            padding: const EdgeInsets.all(40),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer.withOpacity(0.3),
+                    shape: BoxShape.circle,
                   ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Les événements passés apparaîtront ici.',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.grey.shade500,
+                  child: Icon(
+                    Icons.history_rounded,
+                    size: 64,
+                    color: scheme.primary.withOpacity(0.7),
                   ),
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  l10n.noEventInHistory,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: scheme.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Les événements terminés apparaîtront ici.',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: scheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       );
     }
     return RefreshIndicator(
       onRefresh: _load,
-      child: ListView.builder(
-        padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
-        itemCount: _items.length,
-        itemBuilder: (context, index) {
-          final row = _items[index];
-          final ev = row.evenement;
-          final date = row.date;
-          return Card(
+      color: scheme.primary,
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (ev != null) ...[
-                    Text(
-                      ev.titre,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    if (ev.description != null && ev.description!.isNotEmpty) ...[
-                      const SizedBox(height: 4),
-                      Text(
-                        ev.description!,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+              child: NeumorphicCard(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            scheme.primary.withOpacity(0.2),
+                            scheme.secondary.withOpacity(0.15),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                    ],
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        if (date != null)
+                      child: Icon(Icons.history_rounded, size: 32, color: scheme.primary),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Text(
-                            _formatDate(date),
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            l10n.historyTitle,
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                  fontWeight: FontWeight.bold,
                                 ),
                           ),
-                        if (ev.groupe != null) ...[
-                          const SizedBox(width: 12),
-                          Chip(
-                            label: Text(
-                              ev.groupe!.nom,
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                            visualDensity: VisualDensity.compact,
+                          const SizedBox(height: 4),
+                          Text(
+                            '${_items.length} événement${_items.length > 1 ? 's' : ''}',
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: scheme.onSurfaceVariant,
+                                ),
                           ),
                         ],
-                      ],
-                    ),
-                  ] else if (date != null) ...[
-                    Text(
-                      AppLocalizations.of(context).events,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Text(
-                      _formatDate(date),
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurfaceVariant,
-                          ),
+                      ),
                     ),
                   ],
-                ],
+                ),
               ),
             ),
-          );
-        },
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 100),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final row = _items[index];
+                  final ev = row.evenement;
+                  final date = row.date;
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: _HistoriqueEventCard(
+                      event: ev,
+                      date: date,
+                      formatDate: _formatDate,
+                      l10n: l10n,
+                    ),
+                  );
+                },
+                childCount: _items.length,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Carte événement historique au design moderne
+class _HistoriqueEventCard extends StatelessWidget {
+  final Evenement? event;
+  final DateTime? date;
+  final String Function(DateTime?) formatDate;
+  final AppLocalizations l10n;
+
+  const _HistoriqueEventCard({
+    required this.event,
+    required this.date,
+    required this.formatDate,
+    required this.l10n,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
+    return NeumorphicCard(
+      padding: const EdgeInsets.all(20),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 4,
+            height: 60,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [scheme.primary, scheme.secondary],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          const SizedBox(width: 20),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (event != null) ...[
+                  Text(
+                    event!.titre,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  if (event!.description != null &&
+                      event!.description!.isNotEmpty) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      event!.description!,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: scheme.onSurfaceVariant,
+                            height: 1.4,
+                          ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      if (date != null) ...[
+                        Icon(
+                          Icons.calendar_today_rounded,
+                          size: 18,
+                          color: scheme.onSurfaceVariant,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          formatDate(date),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: scheme.onSurfaceVariant,
+                              ),
+                        ),
+                      ],
+                      if (event!.groupe != null) ...[
+                        if (date != null) const SizedBox(width: 16),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: scheme.primary.withOpacity(0.12),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: scheme.primary.withOpacity(0.3),
+                              width: 1,
+                            ),
+                          ),
+                          child: Text(
+                            event!.groupe!.nom,
+                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                                  color: scheme.primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ] else if (date != null) ...[
+                  Text(
+                    l10n.events,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    formatDate(date),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: scheme.onSurfaceVariant,
+                        ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

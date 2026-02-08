@@ -11,6 +11,7 @@ import 'actualites_screen.dart';
 import 'administration_screen.dart';
 import 'evenements_screen.dart';
 import 'groupes_screen.dart';
+import 'mon_groupe_screen.dart';
 import 'historique_screen.dart';
 import 'home_screen.dart';
 import 'login_screen.dart';
@@ -36,6 +37,7 @@ class _MemberMainScreenState extends State<MemberMainScreen> {
   late final bool _showGroupes;
   late final bool _showAdministration;
   late final bool _showProgrammes;
+  late final bool _showMonGroupe;
 
   @override
   void initState() {
@@ -45,6 +47,7 @@ class _MemberMainScreenState extends State<MemberMainScreen> {
     _showProgrammes = widget.user.role == Role.ADMIN_PRINCIPAL ||
         widget.user.role == Role.ADMIN_COACH ||
         widget.user.role == Role.ADHERENT;
+    _showMonGroupe = widget.user.role == Role.ADHERENT;
     if (_showGroupes && _showAdministration) {
       _screens = [
         HomeScreen(user: widget.user),
@@ -63,6 +66,17 @@ class _MemberMainScreenState extends State<MemberMainScreen> {
         EvenementsScreen(user: widget.user),
         SessionsScreen(user: widget.user),
         GroupesScreen(user: widget.user),
+        const ActualitesScreen(),
+        const HistoriqueScreen(),
+        const PresentationScreen(),
+      ];
+    } else if (_showMonGroupe) {
+      _screens = [
+        HomeScreen(user: widget.user),
+        EvenementsScreen(user: widget.user),
+        SessionsScreen(user: widget.user),
+        ProgrammesScreen(user: widget.user),
+        MonGroupeScreen(user: widget.user),
         const ActualitesScreen(),
         const HistoriqueScreen(),
         const PresentationScreen(),
@@ -109,6 +123,17 @@ class _MemberMainScreenState extends State<MemberMainScreen> {
         (icon: Icons.event_outlined, selectedIcon: Icons.event, label: l10n.events),
         (icon: Icons.directions_run_outlined, selectedIcon: Icons.directions_run, label: l10n.trainingProgrammes),
         (icon: Icons.groups_outlined, selectedIcon: Icons.groups, label: l10n.groups),
+        (icon: Icons.article_outlined, selectedIcon: Icons.article, label: l10n.news),
+        (icon: Icons.history, selectedIcon: Icons.history, label: l10n.history),
+        (icon: Icons.info_outline, selectedIcon: Icons.info, label: l10n.presentation),
+      ];
+    } else if (_showMonGroupe) {
+      return [
+        (icon: Icons.home_outlined, selectedIcon: Icons.home, label: l10n.home),
+        (icon: Icons.event_outlined, selectedIcon: Icons.event, label: l10n.events),
+        (icon: Icons.directions_run_outlined, selectedIcon: Icons.directions_run, label: l10n.trainingProgrammes),
+        (icon: Icons.fitness_center_outlined, selectedIcon: Icons.fitness_center, label: l10n.programmes),
+        (icon: Icons.groups_outlined, selectedIcon: Icons.groups, label: l10n.monGroupe),
         (icon: Icons.article_outlined, selectedIcon: Icons.article, label: l10n.news),
         (icon: Icons.history, selectedIcon: Icons.history, label: l10n.history),
         (icon: Icons.info_outline, selectedIcon: Icons.info, label: l10n.presentation),

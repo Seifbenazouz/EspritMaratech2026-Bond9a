@@ -156,6 +156,14 @@ class AppLocalizations {
   String get eventModified => _localizedValues[_localeKey]!['eventModified']!;
   String get eventCreated => _localizedValues[_localeKey]!['eventCreated']!;
   String get cannotLoadGroups => _localizedValues[_localeKey]!['cannotLoadGroups']!;
+  String get createGroup => _localizedValues[_localeKey]!['createGroup']!;
+  String get editGroup => _localizedValues[_localeKey]!['editGroup']!;
+  String get groupCreated => _localizedValues[_localeKey]!['groupCreated']!;
+  String get groupModified => _localizedValues[_localeKey]!['groupModified']!;
+  String get groupLevelBeginner => _localizedValues[_localeKey]!['groupLevelBeginner']!;
+  String get groupLevelIntermediate => _localizedValues[_localeKey]!['groupLevelIntermediate']!;
+  String get groupLevelAdvanced => _localizedValues[_localeKey]!['groupLevelAdvanced']!;
+  String get selectResponsable => _localizedValues[_localeKey]!['selectResponsable']!;
   String get hintTitleEvent => _localizedValues[_localeKey]!['hintTitleEvent']!;
   String get titleRequired => _localizedValues[_localeKey]!['titleRequired']!;
   String get hintEventDetails => _localizedValues[_localeKey]!['hintEventDetails']!;
@@ -167,6 +175,19 @@ class AppLocalizations {
   String get groupRequired => _localizedValues[_localeKey]!['groupRequired']!;
   String get noGroupAvailable => _localizedValues[_localeKey]!['noGroupAvailable']!;
   String get date => _localizedValues[_localeKey]!['date']!;
+  String get monGroupe => _localizedValues[_localeKey]!['monGroupe']!;
+  String get noGroupsForMember => _localizedValues[_localeKey]!['noGroupsForMember']!;
+  String get responsableLabel => _localizedValues[_localeKey]!['responsableLabel']!;
+  String membersCount(int n) => _localizedValues[_localeKey]!['membersCount']!.replaceAll('{n}', '$n');
+  String groupCount(int n) => _localizedValues[_localeKey]!['groupCount']!.replaceAll('{n}', '$n');
+  String get addMember => _localizedValues[_localeKey]!['addMember']!;
+  String get remove => _localizedValues[_localeKey]!['remove']!;
+  String get removeMemberTitle => _localizedValues[_localeKey]!['removeMemberTitle']!;
+  String removeMemberConfirm(String name) => _localizedValues[_localeKey]!['removeMemberConfirm']!.replaceAll('{name}', name);
+  String get memberRemoved => _localizedValues[_localeKey]!['memberRemoved']!;
+  String get members => _localizedValues[_localeKey]!['members']!;
+  String get noMembers => _localizedValues[_localeKey]!['noMembers']!;
+  String get noAdherentAvailable => _localizedValues[_localeKey]!['noAdherentAvailable']!;
 
   static final Map<String, Map<String, String>> _localizedValues = {
     'fr': {
@@ -320,6 +341,14 @@ class AppLocalizations {
       'eventModified': 'Événement modifié.',
       'eventCreated': 'Événement créé.',
       'cannotLoadGroups': 'Impossible de charger les groupes. Vérifiez le backend.',
+      'createGroup': 'Créer un groupe',
+      'editGroup': 'Modifier le groupe',
+      'groupCreated': 'Groupe créé',
+      'groupModified': 'Groupe modifié',
+      'groupLevelBeginner': 'Débutant',
+      'groupLevelIntermediate': 'Intermédiaire',
+      'groupLevelAdvanced': 'Avancé',
+      'selectResponsable': 'Responsable du groupe',
       'hintTitleEvent': 'Ex: Entraînement matinal',
       'titleRequired': 'Le titre est requis',
       'hintEventDetails': 'Détails de l\'événement...',
@@ -331,6 +360,19 @@ class AppLocalizations {
       'groupRequired': 'Le groupe est requis',
       'noGroupAvailable': 'Aucun groupe disponible. Créez d\'abord un groupe.',
       'date': 'Date',
+      'monGroupe': 'Mon groupe',
+      'noGroupsForMember': 'Vous n\'appartenez à aucun groupe pour le moment.',
+      'responsableLabel': 'Responsable',
+      'membersCount': '{n} membre(s)',
+      'groupCount': '{n} groupe(s)',
+      'addMember': 'Ajouter',
+      'remove': 'Retirer',
+      'removeMemberTitle': 'Retirer du groupe',
+      'removeMemberConfirm': 'Retirer {name} du groupe ?',
+      'memberRemoved': 'Membre retiré du groupe',
+      'members': 'Membres',
+      'noMembers': 'Aucun membre',
+      'noAdherentAvailable': 'Aucun adhérent disponible à ajouter',
     },
     'en': {
       'appName': 'Running Club Tunis',
@@ -483,6 +525,14 @@ class AppLocalizations {
       'eventModified': 'Event modified.',
       'eventCreated': 'Event created.',
       'cannotLoadGroups': 'Unable to load groups. Please check the backend.',
+      'createGroup': 'Create group',
+      'editGroup': 'Edit group',
+      'groupCreated': 'Group created',
+      'groupModified': 'Group modified',
+      'groupLevelBeginner': 'Beginner',
+      'groupLevelIntermediate': 'Intermediate',
+      'groupLevelAdvanced': 'Advanced',
+      'selectResponsable': 'Group manager',
       'hintTitleEvent': 'Ex: Morning training',
       'titleRequired': 'Title is required',
       'hintEventDetails': 'Event details...',
@@ -494,6 +544,19 @@ class AppLocalizations {
       'groupRequired': 'Group is required',
       'noGroupAvailable': 'No group available. Create a group first.',
       'date': 'Date',
+      'monGroupe': 'My group',
+      'noGroupsForMember': 'You are not in any group yet.',
+      'responsableLabel': 'Manager',
+      'membersCount': '{n} member(s)',
+      'groupCount': '{n} group(s)',
+      'addMember': 'Add',
+      'remove': 'Remove',
+      'removeMemberTitle': 'Remove from group',
+      'removeMemberConfirm': 'Remove {name} from group?',
+      'memberRemoved': 'Member removed from group',
+      'members': 'Members',
+      'noMembers': 'No members',
+      'noAdherentAvailable': 'No adherent available to add',
     },
     'ar': {
       'appName': 'نادي الجري تونس',
@@ -646,6 +709,14 @@ class AppLocalizations {
       'eventModified': 'تم تعديل الحدث.',
       'eventCreated': 'تم إنشاء الحدث.',
       'cannotLoadGroups': 'تعذر تحميل المجموعات. تحقق من الخادم.',
+      'createGroup': 'إنشاء مجموعة',
+      'editGroup': 'تعديل المجموعة',
+      'groupCreated': 'تم إنشاء المجموعة',
+      'groupModified': 'تم تعديل المجموعة',
+      'groupLevelBeginner': 'مبتدئ',
+      'groupLevelIntermediate': 'متوسط',
+      'groupLevelAdvanced': 'متقدم',
+      'selectResponsable': 'مسؤول المجموعة',
       'hintTitleEvent': 'مثال: تدريب صباحي',
       'titleRequired': 'العنوان مطلوب',
       'hintEventDetails': 'تفاصيل الحدث...',
@@ -657,6 +728,19 @@ class AppLocalizations {
       'groupRequired': 'المجموعة مطلوبة',
       'noGroupAvailable': 'لا توجد مجموعة. أنشئ مجموعة أولاً.',
       'date': 'التاريخ',
+      'monGroupe': 'مجموعتي',
+      'noGroupsForMember': 'أنت لا تنتمي إلى أي مجموعة حتى الآن.',
+      'responsableLabel': 'المسؤول',
+      'membersCount': '{n} عضو/أعضاء',
+      'groupCount': '{n} مجموعة/مجموعات',
+      'addMember': 'إضافة',
+      'remove': 'إزالة',
+      'removeMemberTitle': 'إزالة من المجموعة',
+      'removeMemberConfirm': 'إزالة {name} من المجموعة؟',
+      'memberRemoved': 'تمت إزالة العضو من المجموعة',
+      'members': 'الأعضاء',
+      'noMembers': 'لا يوجد أعضاء',
+      'noAdherentAvailable': 'لا يوجد أعضاء متاحين للإضافة',
     },
     'it': {
       'appName': 'Running Club Tunis',
@@ -809,6 +893,14 @@ class AppLocalizations {
       'eventModified': 'Evento modificato.',
       'eventCreated': 'Evento creato.',
       'cannotLoadGroups': 'Impossibile caricare i gruppi. Verifica il backend.',
+      'createGroup': 'Crea gruppo',
+      'editGroup': 'Modifica gruppo',
+      'groupCreated': 'Gruppo creato',
+      'groupModified': 'Gruppo modificato',
+      'groupLevelBeginner': 'Principiante',
+      'groupLevelIntermediate': 'Intermedio',
+      'groupLevelAdvanced': 'Avanzato',
+      'selectResponsable': 'Responsabile del gruppo',
       'hintTitleEvent': 'Es: Allenamento mattutino',
       'titleRequired': 'Il titolo è obbligatorio',
       'hintEventDetails': 'Dettagli dell\'evento...',
@@ -820,6 +912,19 @@ class AppLocalizations {
       'groupRequired': 'Il gruppo è obbligatorio',
       'noGroupAvailable': 'Nessun gruppo disponibile. Crea prima un gruppo.',
       'date': 'Data',
+      'monGroupe': 'Il mio gruppo',
+      'noGroupsForMember': 'Non fai parte di nessun gruppo al momento.',
+      'responsableLabel': 'Responsabile',
+      'membersCount': '{n} membro/i',
+      'groupCount': '{n} gruppo/i',
+      'addMember': 'Aggiungi',
+      'remove': 'Rimuovi',
+      'removeMemberTitle': 'Rimuovi dal gruppo',
+      'removeMemberConfirm': 'Rimuovere {name} dal gruppo?',
+      'memberRemoved': 'Membro rimosso dal gruppo',
+      'members': 'Membri',
+      'noMembers': 'Nessun membro',
+      'noAdherentAvailable': 'Nessun aderente disponibile da aggiungere',
     },
     'de': {
       'appName': 'Running Club Tunis',
@@ -972,6 +1077,14 @@ class AppLocalizations {
       'eventModified': 'Veranstaltung geändert.',
       'eventCreated': 'Veranstaltung erstellt.',
       'cannotLoadGroups': 'Gruppen konnten nicht geladen werden. Backend prüfen.',
+      'createGroup': 'Gruppe erstellen',
+      'editGroup': 'Gruppe bearbeiten',
+      'groupCreated': 'Gruppe erstellt',
+      'groupModified': 'Gruppe geändert',
+      'groupLevelBeginner': 'Anfänger',
+      'groupLevelIntermediate': 'Fortgeschrittene',
+      'groupLevelAdvanced': 'Erfahren',
+      'selectResponsable': 'Gruppenleiter',
       'hintTitleEvent': 'z.B. Morgentraining',
       'titleRequired': 'Der Titel ist erforderlich',
       'hintEventDetails': 'Details der Veranstaltung...',
@@ -983,6 +1096,19 @@ class AppLocalizations {
       'groupRequired': 'Die Gruppe ist erforderlich',
       'noGroupAvailable': 'Keine Gruppe verfügbar. Erstellen Sie zuerst eine Gruppe.',
       'date': 'Datum',
+      'monGroupe': 'Meine Gruppe',
+      'noGroupsForMember': 'Sie gehören momentan keiner Gruppe an.',
+      'responsableLabel': 'Verantwortlicher',
+      'membersCount': '{n} Mitglied(er)',
+      'groupCount': '{n} Gruppe(n)',
+      'addMember': 'Hinzufügen',
+      'remove': 'Entfernen',
+      'removeMemberTitle': 'Aus Gruppe entfernen',
+      'removeMemberConfirm': '{name} aus der Gruppe entfernen?',
+      'memberRemoved': 'Mitglied aus Gruppe entfernt',
+      'members': 'Mitglieder',
+      'noMembers': 'Keine Mitglieder',
+      'noAdherentAvailable': 'Kein Adherent zum Hinzufügen verfügbar',
     },
   };
 }

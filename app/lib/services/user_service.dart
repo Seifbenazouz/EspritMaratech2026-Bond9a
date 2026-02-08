@@ -26,6 +26,18 @@ class UserService {
     return User.fromJson(json);
   }
 
+  /// Utilisateurs par rôle (ex: ADMIN_GROUPE pour responsable de groupe)
+  Future<List<User>> getByRole(String role, {int size = 100}) async {
+    final response = await _client.get(
+      '/api/users/role/$role',
+      queryParams: {'page': '0', 'size': size.toString()},
+    );
+    _client.checkResponse(response);
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    final content = json['content'] as List<dynamic>? ?? [];
+    return content.map((e) => User.fromJson(e as Map<String, dynamic>)).toList();
+  }
+
   /// Liste des adhérents (pour affectation aux groupes)
   Future<List<User>> getAdherents() async {
     final response = await _client.get('/api/users/adherents');
