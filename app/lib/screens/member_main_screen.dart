@@ -11,6 +11,7 @@ import 'actualites_screen.dart';
 import 'administration_screen.dart';
 import 'evenements_screen.dart';
 import 'groupes_screen.dart';
+import 'matching_partenaire_screen.dart';
 import 'mon_groupe_screen.dart';
 import 'historique_screen.dart';
 import 'home_screen.dart';
@@ -32,6 +33,7 @@ class MemberMainScreen extends StatefulWidget {
 
 class _MemberMainScreenState extends State<MemberMainScreen> {
   int _currentIndex = 0;
+  final ValueNotifier<int> _tabIndexNotifier = ValueNotifier(0);
 
   late final List<Widget> _screens;
   late final bool _showGroupes;
@@ -48,6 +50,16 @@ class _MemberMainScreenState extends State<MemberMainScreen> {
         widget.user.role == Role.ADMIN_COACH ||
         widget.user.role == Role.ADHERENT;
     _showMonGroupe = widget.user.role == Role.ADHERENT;
+    _buildScreens();
+  }
+
+  @override
+  void dispose() {
+    _tabIndexNotifier.dispose();
+    super.dispose();
+  }
+
+  void _buildScreens() {
     if (_showGroupes && _showAdministration) {
       _screens = [
         HomeScreen(user: widget.user),
@@ -76,7 +88,16 @@ class _MemberMainScreenState extends State<MemberMainScreen> {
         EvenementsScreen(user: widget.user),
         SessionsScreen(user: widget.user),
         ProgrammesScreen(user: widget.user),
-        MonGroupeScreen(user: widget.user),
+        MonGroupeScreen(
+          user: widget.user,
+          tabIndexNotifier: _tabIndexNotifier,
+          myTabIndex: 4,
+        ),
+        MatchingPartenaireScreen(
+          user: widget.user,
+          tabIndexNotifier: _tabIndexNotifier,
+          myTabIndex: 5,
+        ),
         const ActualitesScreen(),
         const HistoriqueScreen(),
         const PresentationScreen(),
@@ -134,6 +155,7 @@ class _MemberMainScreenState extends State<MemberMainScreen> {
         (icon: Icons.directions_run_outlined, selectedIcon: Icons.directions_run, label: l10n.trainingProgrammes),
         (icon: Icons.fitness_center_outlined, selectedIcon: Icons.fitness_center, label: l10n.programmes),
         (icon: Icons.groups_outlined, selectedIcon: Icons.groups, label: l10n.monGroupe),
+        (icon: Icons.favorite_border, selectedIcon: Icons.favorite, label: l10n.findPartner),
         (icon: Icons.article_outlined, selectedIcon: Icons.article, label: l10n.news),
         (icon: Icons.history, selectedIcon: Icons.history, label: l10n.history),
         (icon: Icons.info_outline, selectedIcon: Icons.info, label: l10n.presentation),
@@ -194,7 +216,10 @@ class _MemberMainScreenState extends State<MemberMainScreen> {
       ),
       drawer: AppDrawer(
         currentIndex: _currentIndex,
-        onDestinationSelected: (i) => setState(() => _currentIndex = i),
+        onDestinationSelected: (i) {
+          _tabIndexNotifier.value = i;
+          setState(() => _currentIndex = i);
+        },
         items: _buildDrawerItems(context),
       ),
       body: IndexedStack(

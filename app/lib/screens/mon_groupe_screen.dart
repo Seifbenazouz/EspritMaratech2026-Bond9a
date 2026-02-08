@@ -8,11 +8,18 @@ import '../theme/theme_mode_provider.dart';
 import 'groupe_detail_screen.dart';
 
 /// Écran « Mon groupe » / « Mes groupes » pour les adhérents.
-/// Design créatif et dynamique, cohérent avec le thème de l'application.
+/// Charge les données uniquement quand l'onglet est sélectionné.
 class MonGroupeScreen extends StatefulWidget {
   final LoginResponse user;
+  final ValueNotifier<int>? tabIndexNotifier;
+  final int myTabIndex;
 
-  const MonGroupeScreen({super.key, required this.user});
+  const MonGroupeScreen({
+    super.key,
+    required this.user,
+    this.tabIndexNotifier,
+    this.myTabIndex = 4,
+  });
 
   @override
   State<MonGroupeScreen> createState() => _MonGroupeScreenState();
@@ -22,7 +29,8 @@ class _MonGroupeScreenState extends State<MonGroupeScreen>
     with SingleTickerProviderStateMixin {
   final GroupeService _service = GroupeService();
   List<GroupeRunning> _items = [];
-  bool _loading = true;
+  bool _loading = false;
+  bool _hasLoaded = false;
   String? _error;
   late AnimationController _animController;
 
@@ -33,13 +41,22 @@ class _MonGroupeScreenState extends State<MonGroupeScreen>
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
-    _load();
+    widget.tabIndexNotifier?.addListener(_onTabChanged);
+    _onTabChanged();
   }
 
   @override
   void dispose() {
+    widget.tabIndexNotifier?.removeListener(_onTabChanged);
     _animController.dispose();
     super.dispose();
+  }
+
+  void _onTabChanged() {
+    if (widget.tabIndexNotifier?.value == widget.myTabIndex && !_hasLoaded) {
+      _hasLoaded = true;
+      _load();
+    }
   }
 
   Future<void> _load() async {

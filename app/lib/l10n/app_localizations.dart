@@ -186,6 +186,11 @@ class AppLocalizations {
   String removeMemberConfirm(String name) => _localizedValues[_localeKey]!['removeMemberConfirm']!.replaceAll('{name}', name);
   String get memberRemoved => _localizedValues[_localeKey]!['memberRemoved']!;
   String get members => _localizedValues[_localeKey]!['members']!;
+  String get findPartner => _localizedValues[_localeKey]!['findPartner']!;
+  String get matchingInProgress => _localizedValues[_localeKey]!['matchingInProgress']!;
+  String get noPartnerMatch => _localizedValues[_localeKey]!['noPartnerMatch']!;
+  String get noPartnerMatchHint => _localizedValues[_localeKey]!['noPartnerMatchHint']!;
+  String get matchFound => _localizedValues[_localeKey]!['matchFound']!;
   String get noMembers => _localizedValues[_localeKey]!['noMembers']!;
   String get noAdherentAvailable => _localizedValues[_localeKey]!['noAdherentAvailable']!;
 
@@ -371,6 +376,11 @@ class AppLocalizations {
       'removeMemberConfirm': 'Retirer {name} du groupe ?',
       'memberRemoved': 'Membre retiré du groupe',
       'members': 'Membres',
+      'findPartner': 'Trouver un partenaire',
+      'matchingInProgress': 'Recherche de partenaires en cours...',
+      'noPartnerMatch': 'Aucun partenaire trouvé pour le moment.',
+      'noPartnerMatchHint': 'Rejoignez un groupe et participez aux événements pour obtenir des suggestions.',
+      'matchFound': 'Matchs trouvés !',
       'noMembers': 'Aucun membre',
       'noAdherentAvailable': 'Aucun adhérent disponible à ajouter',
     },
@@ -555,6 +565,11 @@ class AppLocalizations {
       'removeMemberConfirm': 'Remove {name} from group?',
       'memberRemoved': 'Member removed from group',
       'members': 'Members',
+      'findPartner': 'Find a partner',
+      'matchingInProgress': 'Searching for partners...',
+      'noPartnerMatch': 'No partner found at the moment.',
+      'noPartnerMatchHint': 'Join a group and participate in events to get suggestions.',
+      'matchFound': 'Matches found!',
       'noMembers': 'No members',
       'noAdherentAvailable': 'No adherent available to add',
     },
@@ -739,6 +754,11 @@ class AppLocalizations {
       'removeMemberConfirm': 'إزالة {name} من المجموعة؟',
       'memberRemoved': 'تمت إزالة العضو من المجموعة',
       'members': 'الأعضاء',
+      'findPartner': 'البحث عن شريك',
+      'matchingInProgress': 'جاري البحث عن شركاء...',
+      'noPartnerMatch': 'لم يتم العثور على شريك في الوقت الحالي.',
+      'noPartnerMatchHint': 'انضم إلى مجموعة وشارك في الفعاليات للحصول على اقتراحات.',
+      'matchFound': 'تم العثور على تطابقات!',
       'noMembers': 'لا يوجد أعضاء',
       'noAdherentAvailable': 'لا يوجد أعضاء متاحين للإضافة',
     },
@@ -923,6 +943,11 @@ class AppLocalizations {
       'removeMemberConfirm': 'Rimuovere {name} dal gruppo?',
       'memberRemoved': 'Membro rimosso dal gruppo',
       'members': 'Membri',
+      'findPartner': 'Trova un partner',
+      'matchingInProgress': 'Ricerca partner in corso...',
+      'noPartnerMatch': 'Nessun partner trovato al momento.',
+      'noPartnerMatchHint': 'Unisciti a un gruppo e partecipa agli eventi per ottenere suggerimenti.',
+      'matchFound': 'Match trovati!',
       'noMembers': 'Nessun membro',
       'noAdherentAvailable': 'Nessun aderente disponibile da aggiungere',
     },
@@ -1107,6 +1132,11 @@ class AppLocalizations {
       'removeMemberConfirm': '{name} aus der Gruppe entfernen?',
       'memberRemoved': 'Mitglied aus Gruppe entfernt',
       'members': 'Mitglieder',
+      'findPartner': 'Partner finden',
+      'matchingInProgress': 'Partnersuche läuft...',
+      'noPartnerMatch': 'Derzeit kein Partner gefunden.',
+      'noPartnerMatchHint': 'Treten Sie einer Gruppe bei und nehmen Sie an Veranstaltungen teil.',
+      'matchFound': 'Matches gefunden!',
       'noMembers': 'Keine Mitglieder',
       'noAdherentAvailable': 'Kein Adherent zum Hinzufügen verfügbar',
     },

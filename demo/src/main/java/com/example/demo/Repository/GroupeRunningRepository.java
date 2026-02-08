@@ -1,4 +1,5 @@
 package com.example.demo.repository;
+import java.util.List;
 
 import com.example.demo.entity.GroupeRunning;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,9 @@ public interface GroupeRunningRepository extends JpaRepository<GroupeRunning, Lo
 
     @Query("SELECT g FROM GroupeRunning g JOIN g.membres m WHERE m.id = :adherentId")
     Page<GroupeRunning> findByMembreId(UUID adherentId, Pageable pageable);
+
+    @Query("SELECT DISTINCT g FROM GroupeRunning g LEFT JOIN FETCH g.membres WHERE g IN (SELECT g2 FROM GroupeRunning g2 JOIN g2.membres m WHERE m.id = :adherentId)")
+    List<GroupeRunning> findByMembreIdWithMembres(@Param("adherentId") UUID adherentId);
 
     Page<GroupeRunning> findByResponsableIdOrderByNomAsc(UUID responsableId, Pageable pageable);
 
