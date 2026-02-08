@@ -194,8 +194,24 @@ class AppLocalizations {
   String get invitationEnvoyee => _localizedValues[_localeKey]!['invitationEnvoyee']!;
   String get invitationErreur => _localizedValues[_localeKey]!['invitationErreur']!;
   String get matchFound => _localizedValues[_localeKey]!['matchFound']!;
+  String get filterByGroup => _localizedValues[_localeKey]!['filterByGroup']!;
+  String get filterByDate => _localizedValues[_localeKey]!['filterByDate']!;
+  String get allGroups => _localizedValues[_localeKey]!['allGroups']!;
+  String get periodAll => _localizedValues[_localeKey]!['periodAll']!;
+  String get periodToday => _localizedValues[_localeKey]!['periodToday']!;
+  String get periodThisWeek => _localizedValues[_localeKey]!['periodThisWeek']!;
+  String get periodThisMonth => _localizedValues[_localeKey]!['periodThisMonth']!;
   String get noMembers => _localizedValues[_localeKey]!['noMembers']!;
   String get noAdherentAvailable => _localizedValues[_localeKey]!['noAdherentAvailable']!;
+  String get statsTitle => _localizedValues[_localeKey]!['statsTitle']!;
+  String get statsTotalKm => _localizedValues[_localeKey]!['statsTotalKm']!;
+  String get statsNbSorties => _localizedValues[_localeKey]!['statsNbSorties']!;
+  String get statsPaceMoyen => _localizedValues[_localeKey]!['statsPaceMoyen']!;
+  String get statsNbEvenements => _localizedValues[_localeKey]!['statsNbEvenements']!;
+  String get statsPlusLongueSortie => _localizedValues[_localeKey]!['statsPlusLongueSortie']!;
+  String get statsMeilleurPace => _localizedValues[_localeKey]!['statsMeilleurPace']!;
+  String get statsEmptyHint => _localizedValues[_localeKey]!['statsEmptyHint']!;
+  String get statsRecordRunHint => _localizedValues[_localeKey]!['statsRecordRunHint']!;
 
   static final Map<String, Map<String, String>> _localizedValues = {
     'fr': {
@@ -387,8 +403,24 @@ class AppLocalizations {
       'invitationEnvoyee': 'Invitation envoyée !',
       'invitationErreur': 'Impossible d\'envoyer l\'invitation',
       'matchFound': 'Matchs trouvés !',
+      'filterByGroup': 'Filtrer par groupe',
+      'filterByDate': 'Filtrer par date',
+      'allGroups': 'Tous les groupes',
+      'periodAll': 'Tous',
+      'periodToday': 'Aujourd\'hui',
+      'periodThisWeek': 'Cette semaine',
+      'periodThisMonth': 'Ce mois',
       'noMembers': 'Aucun membre',
       'noAdherentAvailable': 'Aucun adhérent disponible à ajouter',
+      'statsTitle': 'Mes statistiques',
+      'statsTotalKm': 'Km courus',
+      'statsNbSorties': 'Sorties',
+      'statsPaceMoyen': 'Pace moyen',
+      'statsNbEvenements': 'Événements',
+      'statsPlusLongueSortie': 'Plus longue sortie',
+      'statsMeilleurPace': 'Meilleur pace',
+      'statsEmptyHint': 'Enregistrez des sorties et participez aux événements pour voir vos stats.',
+      'statsRecordRunHint': 'Enregistrer une sortie',
     },
     'en': {
       'appName': 'Running Club Tunis',
@@ -579,8 +611,24 @@ class AppLocalizations {
       'invitationEnvoyee': 'Invitation sent!',
       'invitationErreur': 'Unable to send invitation',
       'matchFound': 'Matches found!',
+      'filterByGroup': 'Filter by group',
+      'filterByDate': 'Filter by date',
+      'allGroups': 'All groups',
+      'periodAll': 'All',
+      'periodToday': 'Today',
+      'periodThisWeek': 'This week',
+      'periodThisMonth': 'This month',
       'noMembers': 'No members',
       'noAdherentAvailable': 'No adherent available to add',
+      'statsTitle': 'My statistics',
+      'statsTotalKm': 'Km run',
+      'statsNbSorties': 'Runs',
+      'statsPaceMoyen': 'Average pace',
+      'statsNbEvenements': 'Events',
+      'statsPlusLongueSortie': 'Longest run',
+      'statsMeilleurPace': 'Best pace',
+      'statsEmptyHint': 'Record runs and participate in events to see your stats.',
+      'statsRecordRunHint': 'Record a run',
     },
     'ar': {
       'appName': 'نادي الجري تونس',
@@ -771,8 +819,24 @@ class AppLocalizations {
       'invitationEnvoyee': 'تم إرسال الدعوة!',
       'invitationErreur': 'تعذر إرسال الدعوة',
       'matchFound': 'تم العثور على تطابقات!',
+      'filterByGroup': 'تصفية حسب المجموعة',
+      'filterByDate': 'تصفية حسب التاريخ',
+      'allGroups': 'جميع المجموعات',
+      'periodAll': 'الكل',
+      'periodToday': 'اليوم',
+      'periodThisWeek': 'هذا الأسبوع',
+      'periodThisMonth': 'هذا الشهر',
       'noMembers': 'لا يوجد أعضاء',
       'noAdherentAvailable': 'لا يوجد أعضاء متاحين للإضافة',
+      'statsTitle': 'إحصائياتي',
+      'statsTotalKm': 'كم مر',
+      'statsNbSorties': 'جولات',
+      'statsPaceMoyen': 'السرعة المتوسطة',
+      'statsNbEvenements': 'فعاليات',
+      'statsPlusLongueSortie': 'أطول جولة',
+      'statsMeilleurPace': 'أفضل سرعة',
+      'statsEmptyHint': 'سجّل الجولات وشارك في الفعاليات لرؤية إحصائياتك.',
+      'statsRecordRunHint': 'تسجيل جولة',
     },
     'it': {
       'appName': 'Running Club Tunis',
@@ -963,8 +1027,24 @@ class AppLocalizations {
       'invitationEnvoyee': 'Invito inviato!',
       'invitationErreur': 'Impossibile inviare l\'invito',
       'matchFound': 'Match trovati!',
+      'filterByGroup': 'Filtra per gruppo',
+      'filterByDate': 'Filtra per data',
+      'allGroups': 'Tutti i gruppi',
+      'periodAll': 'Tutti',
+      'periodToday': 'Oggi',
+      'periodThisWeek': 'Questa settimana',
+      'periodThisMonth': 'Questo mese',
       'noMembers': 'Nessun membro',
       'noAdherentAvailable': 'Nessun aderente disponibile da aggiungere',
+      'statsTitle': 'Le mie statistiche',
+      'statsTotalKm': 'Km percorsi',
+      'statsNbSorties': 'Uscite',
+      'statsPaceMoyen': 'Passo medio',
+      'statsNbEvenements': 'Eventi',
+      'statsPlusLongueSortie': 'Uscita più lunga',
+      'statsMeilleurPace': 'Miglior passo',
+      'statsEmptyHint': 'Registra le uscite e partecipa agli eventi per vedere le tue statistiche.',
+      'statsRecordRunHint': 'Registra un\'uscita',
     },
     'de': {
       'appName': 'Running Club Tunis',
@@ -1155,8 +1235,24 @@ class AppLocalizations {
       'invitationEnvoyee': 'Einladung gesendet!',
       'invitationErreur': 'Einladung konnte nicht gesendet werden',
       'matchFound': 'Matches gefunden!',
+      'filterByGroup': 'Nach Gruppe filtern',
+      'filterByDate': 'Nach Datum filtern',
+      'allGroups': 'Alle Gruppen',
+      'periodAll': 'Alle',
+      'periodToday': 'Heute',
+      'periodThisWeek': 'Diese Woche',
+      'periodThisMonth': 'Diesen Monat',
       'noMembers': 'Keine Mitglieder',
       'noAdherentAvailable': 'Kein Adherent zum Hinzufügen verfügbar',
+      'statsTitle': 'Meine Statistiken',
+      'statsTotalKm': 'Gelaufene Km',
+      'statsNbSorties': 'Läufe',
+      'statsPaceMoyen': 'Durchschnittliches Tempo',
+      'statsNbEvenements': 'Veranstaltungen',
+      'statsPlusLongueSortie': 'Längster Lauf',
+      'statsMeilleurPace': 'Bestes Tempo',
+      'statsEmptyHint': 'Registrieren Sie Läufe und nehmen Sie an Veranstaltungen teil, um Ihre Statistiken zu sehen.',
+      'statsRecordRunHint': 'Lauf aufzeichnen',
     },
   };
 }

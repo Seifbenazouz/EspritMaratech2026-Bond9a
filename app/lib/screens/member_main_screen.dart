@@ -19,6 +19,7 @@ import 'login_screen.dart';
 import 'presentation_screen.dart';
 import 'programmes_screen.dart';
 import 'sessions_screen.dart';
+import 'stats_adherent_screen.dart';
 import 'welcome_screen.dart';
 
 /// Écran principal : Accueil, Événements, [Groupes], [Administration], [Programmes], Actualités, Historique, Présentation (selon rôle)
@@ -98,6 +99,11 @@ class _MemberMainScreenState extends State<MemberMainScreen> {
           tabIndexNotifier: _tabIndexNotifier,
           myTabIndex: 5,
         ),
+        StatsAdherentScreen(
+          user: widget.user,
+          tabIndexNotifier: _tabIndexNotifier,
+          myTabIndex: 6,
+        ),
         const ActualitesScreen(),
         const HistoriqueScreen(),
         const PresentationScreen(),
@@ -156,6 +162,7 @@ class _MemberMainScreenState extends State<MemberMainScreen> {
         (icon: Icons.fitness_center_outlined, selectedIcon: Icons.fitness_center, label: l10n.programmes),
         (icon: Icons.groups_outlined, selectedIcon: Icons.groups, label: l10n.monGroupe),
         (icon: Icons.favorite_border, selectedIcon: Icons.favorite, label: l10n.findPartner),
+        (icon: Icons.bar_chart_outlined, selectedIcon: Icons.bar_chart, label: l10n.statsTitle),
         (icon: Icons.article_outlined, selectedIcon: Icons.article, label: l10n.news),
         (icon: Icons.history, selectedIcon: Icons.history, label: l10n.history),
         (icon: Icons.info_outline, selectedIcon: Icons.info, label: l10n.presentation),

@@ -3,8 +3,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../l10n/app_localizations.dart';
 import '../models/evenement.dart';
+import '../models/groupe_running.dart';
+import '../models/page_response.dart';
 import '../models/login_response.dart';
 import '../services/evenement_service.dart';
+import '../services/groupe_service.dart';
 import '../widgets/neumorphic_card.dart';
 import 'evenement_form_screen.dart';
 import 'evenement_serie_form_screen.dart';
@@ -32,14 +35,48 @@ class EvenementsScreen extends StatefulWidget {
 
 class _EvenementsScreenState extends State<EvenementsScreen> {
   final EvenementService _service = EvenementService();
+  final GroupeService _groupeService = GroupeService();
   List<Evenement> _items = [];
+  List<GroupeRunning> _groupes = [];
   bool _loading = true;
   String? _error;
+  int? _selectedGroupeId;
+  String _datePeriod = 'all';
 
   @override
   void initState() {
     super.initState();
+    _loadGroupes();
     _load();
+  }
+
+  (DateTime, DateTime) _getDateRange() {
+    final now = DateTime.now();
+    switch (_datePeriod) {
+      case 'today':
+        final start = DateTime(now.year, now.month, now.day);
+        return (start, start.add(const Duration(days: 1)));
+      case 'week':
+        final weekday = now.weekday;
+        final monday = now.subtract(Duration(days: weekday - 1));
+        final start = DateTime(monday.year, monday.month, monday.day);
+        final end = start.add(const Duration(days: 7));
+        return (start, end);
+      case 'month':
+        final start = DateTime(now.year, now.month, 1);
+        final end = DateTime(now.year, now.month + 1, 1);
+        return (start, end);
+      default:
+        return (DateTime(1970, 1, 1), DateTime(2100, 1, 1));
+    }
+  }
+
+  Future<void> _loadGroupes() async {
+    try {
+      final page = await _groupeService.getAll(size: 100);
+      if (!mounted) return;
+      setState(() => _groupes = page.content);
+    } catch (_) {}
   }
 
   Future<void> _load() async {
@@ -48,7 +85,28 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
       _error = null;
     });
     try {
-      final page = await _service.getAll();
+      PageResponse<Evenement> page;
+      if (_datePeriod == 'all') {
+        page = await _service.getAll(size: 200);
+      } else {
+        final (debut, fin) = _getDateRange();
+        page = await _service.search(
+          debut: debut,
+          fin: fin,
+          groupeId: _selectedGroupeId,
+          size: 200,
+        );
+      }
+      if (_datePeriod == 'all' && _selectedGroupeId != null) {
+        final filtered = page.content.where((e) => e.groupe?.id == _selectedGroupeId).toList();
+        page = PageResponse(
+          content: filtered,
+          totalElements: filtered.length,
+          totalPages: 1,
+          size: page.size,
+          number: 0,
+        );
+      }
       if (!mounted) return;
       setState(() {
         _items = page.content;
@@ -69,6 +127,131 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
         '${d.hour.toString().padLeft(2, '0')}:${d.minute.toString().padLeft(2, '0')}';
   }
 
+  Widget _buildFilters(AppLocalizations l10n) {
+    final scheme = Theme.of(context).colorScheme;
+    final primary = scheme.primary;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+      child: NeumorphicCard(
+        padding: const EdgeInsets.all(20),
+        margin: EdgeInsets.zero,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.filter_list_rounded, size: 20, color: primary),
+                const SizedBox(width: 8),
+                Text(
+                  l10n.filterByGroup,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: scheme.onSurface,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            DropdownButtonFormField<int?>(
+              value: _selectedGroupeId,
+              borderRadius: BorderRadius.circular(16),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: scheme.surfaceContainerHighest.withOpacity(0.6),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(color: scheme.outline.withOpacity(0.2)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(color: scheme.outline.withOpacity(0.25)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(color: primary.withOpacity(0.6), width: 1.5),
+                ),
+              ),
+              dropdownColor: scheme.surface,
+              items: [
+                DropdownMenuItem(value: null, child: Text(l10n.allGroups)),
+                ..._groupes.map((g) => DropdownMenuItem<int?>(value: g.id, child: Text(g.nom))),
+              ],
+              onChanged: (v) {
+                setState(() {
+                  _selectedGroupeId = v;
+                  _load();
+                });
+              },
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Icon(Icons.date_range_rounded, size: 20, color: primary),
+                const SizedBox(width: 8),
+                Text(
+                  l10n.filterByDate,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: scheme.onSurface,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+              _PeriodChip(
+                  label: l10n.periodAll,
+                  selected: _datePeriod == 'all',
+                  onTap: () {
+                    setState(() {
+                      _datePeriod = 'all';
+                      _load();
+                    });
+                  },
+                ),
+              _PeriodChip(
+                  label: l10n.periodToday,
+                  selected: _datePeriod == 'today',
+                  onTap: () {
+                    setState(() {
+                      _datePeriod = 'today';
+                      _load();
+                    });
+                  },
+                ),
+              _PeriodChip(
+                  label: l10n.periodThisWeek,
+                  selected: _datePeriod == 'week',
+                  onTap: () {
+                    setState(() {
+                      _datePeriod = 'week';
+                      _load();
+                    });
+                  },
+                ),
+              _PeriodChip(
+                  label: l10n.periodThisMonth,
+                  selected: _datePeriod == 'month',
+                  onTap: () {
+                    setState(() {
+                      _datePeriod = 'month';
+                      _load();
+                    });
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   bool get _canManage => EvenementsScreen.canManageEvents(widget.user);
 
   @override
@@ -82,13 +265,17 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
         title: Text(AppLocalizations.of(context).events),
         actions: [
           if (_canManage)
-            TextButton.icon(
+            FilledButton.tonalIcon(
               onPressed: () => _navigateToSerie(context),
-              icon: const Icon(Icons.repeat, size: 20),
+              icon: const Icon(Icons.repeat_rounded, size: 20),
               label: Text(AppLocalizations.of(context).createSeries),
+              style: FilledButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              ),
             ),
-          IconButton(
-            icon: const Icon(Icons.refresh),
+          const SizedBox(width: 8),
+          IconButton.filledTonal(
+            icon: const Icon(Icons.refresh_rounded),
             onPressed: _loading ? null : _load,
             tooltip: AppLocalizations.of(context).refresh,
           ),
@@ -96,11 +283,12 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
       ),
       body: _buildBody(),
       floatingActionButton: _canManage
-          ? FloatingActionButton(
+          ? FloatingActionButton.extended(
               onPressed: () => _navigateToForm(context),
-              child: const Icon(Icons.add, size: 28),
+              icon: const Icon(Icons.add_rounded, size: 24),
+              label: Text(AppLocalizations.of(context).createEvent),
               tooltip: AppLocalizations.of(context).createEvent,
-              mini: false,
+              elevation: 4,
             )
           : null,
     );
@@ -126,6 +314,7 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
 
   Widget _buildBody() {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
     if (_loading) {
       return Center(
         child: Column(
@@ -189,6 +378,10 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
                   onPressed: _load,
                   icon: const Icon(Icons.refresh_rounded),
                   label: Text(AppLocalizations.of(context).retry),
+                  style: FilledButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  ),
                 ),
               ],
             ),
@@ -238,7 +431,7 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
               child: NeumorphicCard(
                 padding: const EdgeInsets.all(20),
                 child: Row(
@@ -284,8 +477,11 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
               ),
             ),
           ),
+          SliverToBoxAdapter(
+            child: _buildFilters(l10n),
+          ),
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 100),
+            padding: const EdgeInsets.fromLTRB(20, 12, 20, 100),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
@@ -355,18 +551,22 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
                     ),
                   ),
                   if (canManage) ...[
-                    IconButton(
-                      icon: const Icon(Icons.edit),
+                    IconButton.filledTonal(
+                      icon: const Icon(Icons.edit_rounded),
                       onPressed: () {
                         Navigator.of(ctx).pop();
                         _navigateToForm(context, e);
                       },
                       tooltip: 'Modifier',
                     ),
-                    IconButton(
-                      icon: Icon(Icons.delete, color: Theme.of(context).colorScheme.error),
+                    const SizedBox(width: 8),
+                    IconButton.filledTonal(
+                      icon: Icon(Icons.delete_rounded, color: Theme.of(context).colorScheme.error),
                       onPressed: () => _confirmDelete(ctx, e),
                       tooltip: 'Supprimer',
+                      style: IconButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.errorContainer.withOpacity(0.5),
+                      ),
                     ),
                   ],
                 ],
@@ -454,11 +654,19 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            ),
             child: const Text('Annuler'),
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            style: FilledButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.error),
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onError,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            ),
             child: const Text('Supprimer'),
           ),
         ],
@@ -479,6 +687,62 @@ class _EvenementsScreenState extends State<EvenementsScreen> {
         SnackBar(content: Text('Erreur: ${err.toString().replaceFirst('Exception: ', '')}')),
       );
     }
+  }
+}
+
+/// Chip pour sélectionner la période (Tous, Aujourd'hui, etc.)
+class _PeriodChip extends StatelessWidget {
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const _PeriodChip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final primary = scheme.primary;
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            gradient: selected
+                ? LinearGradient(
+                    colors: [
+                      primary.withOpacity(0.15),
+                      primary.withOpacity(0.08),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  )
+                : null,
+            color: selected ? null : scheme.surfaceContainerHighest.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: selected ? primary.withOpacity(0.5) : scheme.outline.withOpacity(0.2),
+              width: selected ? 1.5 : 1,
+            ),
+          ),
+          child: Text(
+            label,
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+                  color: selected ? primary : scheme.onSurfaceVariant,
+                ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -759,10 +1023,11 @@ class _LieuChip extends StatelessWidget {
             const SizedBox(height: 12),
             FilledButton.tonalIcon(
               onPressed: onOpenMaps,
-              icon: const Icon(Icons.map, size: 20),
+              icon: const Icon(Icons.map_rounded, size: 20),
               label: const Text('Ouvrir dans Maps'),
               style: FilledButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
               ),
             ),
           ],

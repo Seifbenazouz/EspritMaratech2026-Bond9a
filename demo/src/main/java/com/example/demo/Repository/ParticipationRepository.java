@@ -11,6 +11,8 @@ import java.util.UUID;
 
 public interface ParticipationRepository extends JpaRepository<Participation, Long> {
 
+    long countByAdherent_Id(UUID adherentId);
+
     Optional<Participation> findByAdherentIdAndEvenementId(UUID adherentId, Long evenementId);
 
     boolean existsByAdherentIdAndEvenementId(UUID adherentId, Long evenementId);

@@ -8,6 +8,39 @@ import 'api_client.dart';
 class EvenementService {
   final ApiClient _client = ApiClient();
 
+  /// Recherche d'événements par période (debut, fin) et optionnellement par groupe
+  Future<PageResponse<Evenement>> search({
+    required DateTime debut,
+    required DateTime fin,
+    int? groupeId,
+    int page = 0,
+    int size = 100,
+  }) async {
+    final response = await _client.get(
+      '/api/evenements/search',
+      queryParams: {
+        'debut': debut.toUtc().toIso8601String(),
+        'fin': fin.toUtc().toIso8601String(),
+        'page': page.toString(),
+        'size': size.toString(),
+      },
+    );
+    _client.checkResponse(response);
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    var pageResult = PageResponse.fromJson(json, (m) => Evenement.fromJson(m));
+    if (groupeId != null && pageResult.content.isNotEmpty) {
+      final filtered = pageResult.content.where((e) => e.groupe?.id == groupeId).toList();
+      pageResult = PageResponse(
+        content: filtered,
+        totalElements: filtered.length,
+        totalPages: 1,
+        size: pageResult.size,
+        number: 0,
+      );
+    }
+    return pageResult;
+  }
+
   /// Liste tous les événements (auth requise)
   Future<PageResponse<Evenement>> getAll({
     int page = 0,

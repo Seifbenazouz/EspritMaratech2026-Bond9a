@@ -164,6 +164,7 @@ class _GroupesScreenState extends State<GroupesScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
+
                         ),
                         if (g.niveau != null && g.niveau!.isNotEmpty)
                           Chip(
