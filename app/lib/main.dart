@@ -9,6 +9,7 @@ import 'theme/app_theme.dart';
 import 'theme/locale_provider.dart';
 import 'theme/text_scale_provider.dart';
 import 'theme/theme_mode_provider.dart';
+import 'screens/change_password_screen.dart';
 import 'screens/member_main_screen.dart';
 import 'screens/welcome_screen.dart';
 import 'services/auth_service.dart';
@@ -182,9 +183,13 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
     if (!mounted) return;
     setState(() {
-      _initialScreen = user != null
-          ? MemberMainScreen(user: user!)
-          : const WelcomeScreen();
+      if (user != null && user!.passwordChangeRequired) {
+        _initialScreen = ChangePasswordScreen(user: user!);
+      } else if (user != null) {
+        _initialScreen = MemberMainScreen(user: user!);
+      } else {
+        _initialScreen = const WelcomeScreen();
+      }
       _isChecking = false;
     });
 

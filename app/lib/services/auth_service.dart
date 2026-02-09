@@ -67,4 +67,38 @@ class AuthService {
   Future<void> logout() async {
     await _storage.clearAuth();
   }
+
+  /// Change le mot de passe (utilisateur connecté). Lance une exception en cas d'erreur.
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    final token = await _storage.getToken();
+    if (token == null || token.isEmpty) throw Exception('Non connecté');
+
+    final url = Uri.parse('${ApiConfig.baseUrl}/api/auth/change-password');
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'currentPassword': currentPassword,
+        'newPassword': newPassword,
+      }),
+    );
+
+    if (response.statusCode >= 400) {
+      final body = response.body;
+      final msg = body.isNotEmpty ? jsonDecode(body) : null;
+      final err = msg is Map ? (msg['message'] ?? msg['error'] ?? body) : body;
+      throw Exception(err.toString());
+    }
+  }
+
+  /// Met à jour l'utilisateur stocké (ex: après changement de mot de passe).
+  Future<void> updateStoredUser(LoginResponse user) async {
+    await _storage.saveUser(jsonEncode(user.toJson()));
+  }
 }

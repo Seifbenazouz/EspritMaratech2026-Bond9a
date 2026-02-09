@@ -60,6 +60,7 @@ public class SecurityConfig {
                         // Auth
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/register").permitAll()
+                        .requestMatchers("/api/auth/dev-reset-password").permitAll()
                         // Liste adhérents : Admin principal et Admin groupe (pour affectation aux groupes)
                         .requestMatchers(HttpMethod.GET, "/api/users/adherents").hasAnyRole("ADMIN_PRINCIPAL", "ADMIN_GROUPE")
                         // Diagnostic FCM : vérifier si un utilisateur a un token enregistré

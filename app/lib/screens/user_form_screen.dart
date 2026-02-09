@@ -15,6 +15,11 @@ class UserFormScreen extends StatefulWidget {
   State<UserFormScreen> createState() => _UserFormScreenState();
 }
 
+/// Expression régulière pour valider le format email.
+final RegExp _emailRegex = RegExp(
+  r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+);
+
 class _UserFormScreenState extends State<UserFormScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nomController = TextEditingController();
@@ -27,6 +32,16 @@ class _UserFormScreenState extends State<UserFormScreen> {
   bool _loading = false;
 
   bool get _isEdit => widget.user != null;
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return AppLocalizations.of(context).required;
+    }
+    if (!_emailRegex.hasMatch(value.trim())) {
+      return AppLocalizations.of(context).invalidEmail;
+    }
+    return null;
+  }
 
   @override
   void initState() {
@@ -123,6 +138,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
       ),
       body: Form(
         key: _formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
@@ -150,11 +166,46 @@ class _UserFormScreenState extends State<UserFormScreen> {
               controller: _emailController,
               decoration: InputDecoration(
                 labelText: '${AppLocalizations.of(context).email} *',
-                border: OutlineInputBorder(),
+                hintText: 'ex: nom@domaine.com',
+                prefixIcon: const Icon(Icons.email_outlined),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.outline.withOpacity(0.5),
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2,
+                  ),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.error,
+                    width: 2,
+                  ),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.error,
+                    width: 2.5,
+                  ),
+                ),
+                errorStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               keyboardType: TextInputType.emailAddress,
               autocorrect: false,
-              validator: (v) => v == null || v.trim().isEmpty ? AppLocalizations.of(context).required : null,
+              validator: _validateEmail,
             ),
             const SizedBox(height: 16),
             TextFormField(
@@ -170,7 +221,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
               controller: _cinController,
               decoration: InputDecoration(
                 labelText: '${AppLocalizations.of(context).cin} *',
-                hintText: 'Au moins 3 chiffres (mot de passe initial = 3 derniers chiffres)',
+                hintText: 'cin',
                 border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
@@ -178,7 +229,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
               validator: _isEdit ? null : (v) {
                 if (v == null || v.trim().isEmpty) return 'Requis';
                 final n = int.tryParse(v.trim());
-                if (n == null || n.abs() < 100) return 'Au moins 3 chiffres';
+                if (n == null || n.abs() < 10000000) return 'Au moins 8 chiffres';
                 return null;
               },
             ),

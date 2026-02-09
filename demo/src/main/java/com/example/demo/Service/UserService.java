@@ -62,6 +62,7 @@ public class UserService {
                 .cin(request.getCin())
                 .password(encodedPassword)
                 .role(request.getRole())
+                .passwordChangeRequired(true)
                 .build();
         return userRepository.save(user);
     }

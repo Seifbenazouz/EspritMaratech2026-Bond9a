@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ChangePasswordRequest;
 import com.example.demo.dto.FcmTokenRequest;
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.LoginResponse;
@@ -48,6 +49,21 @@ public class AuthController {
             @Valid @RequestBody FcmTokenRequest request) {
         log.info("FCM: requête reçue pour utilisateur \"{}\" (enregistrement du token)", user.getUsername());
         authService.registerFcmToken(user.getUsername(), request.getToken());
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * Changer le mot de passe (utilisateur connecté).
+     * Obligatoire au premier login si le compte a été créé par l'admin.
+     */
+    @PostMapping("/change-password")
+    public ResponseEntity<Void> changePassword(
+            @AuthenticationPrincipal UserDetails user,
+            @Valid @RequestBody ChangePasswordRequest request) {
+        if (user == null) {
+            return ResponseEntity.status(401).build();
+        }
+        authService.changePassword(user.getUsername(), request);
         return ResponseEntity.ok().build();
     }
 }

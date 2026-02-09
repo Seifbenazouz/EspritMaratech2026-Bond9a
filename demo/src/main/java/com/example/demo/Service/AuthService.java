@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ChangePasswordRequest;
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.LoginResponse;
 import com.example.demo.dto.RegisterRequest;
@@ -49,6 +50,7 @@ public class AuthService {
                 .prenom(user.getPrenom())
                 .email(user.getEmail())
                 .role(user.getRole())
+                .passwordChangeRequired(Boolean.TRUE.equals(user.getPasswordChangeRequired()))
                 .build();
     }
 
@@ -93,6 +95,7 @@ public class AuthService {
                 .prenom(user.getPrenom())
                 .email(user.getEmail())
                 .role(user.getRole())
+                .passwordChangeRequired(Boolean.TRUE.equals(user.getPasswordChangeRequired()))
                 .build();
     }
 
@@ -107,5 +110,60 @@ public class AuthService {
         userRepository.save(user);
         String prefix = fcmToken != null && fcmToken.length() > 20 ? fcmToken.substring(0, 20) + "..." : fcmToken;
         log.info("FCM: token enregistré pour utilisateur \"{}\" ({}), préfixe: {}", nom, user.getId(), prefix);
+    }
+
+    private static final java.util.regex.Pattern UPPER = java.util.regex.Pattern.compile("[A-Z]");
+    private static final java.util.regex.Pattern LOWER = java.util.regex.Pattern.compile("[a-z]");
+    private static final java.util.regex.Pattern DIGIT = java.util.regex.Pattern.compile("[0-9]");
+    private static final java.util.regex.Pattern SPECIAL = java.util.regex.Pattern.compile("[^A-Za-z0-9]");
+
+    /**
+     * Change le mot de passe (utilisateur connecté).
+     * Règles : min 8 caractères, au moins 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial.
+     */
+    @Transactional
+    public void changePassword(String username, ChangePasswordRequest request) {
+        User user = userRepository.findByNom(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Utilisateur", username));
+
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            throw new BadCredentialsException("Mot de passe actuel incorrect");
+        }
+
+        String newPwd = request.getNewPassword();
+        if (newPwd.length() < 8) {
+            throw new IllegalArgumentException("Le mot de passe doit contenir au moins 8 caractères");
+        }
+        if (!UPPER.matcher(newPwd).find()) {
+            throw new IllegalArgumentException("Le mot de passe doit contenir au moins une majuscule");
+        }
+        if (!LOWER.matcher(newPwd).find()) {
+            throw new IllegalArgumentException("Le mot de passe doit contenir au moins une minuscule");
+        }
+        if (!DIGIT.matcher(newPwd).find()) {
+            throw new IllegalArgumentException("Le mot de passe doit contenir au moins un chiffre");
+        }
+        if (!SPECIAL.matcher(newPwd).find()) {
+            throw new IllegalArgumentException("Le mot de passe doit contenir au moins un caractère spécial");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPwd));
+        user.setPasswordChangeRequired(false);
+        userRepository.save(user);
+        log.info("Mot de passe changé pour l'utilisateur \"{}\"", username);
+    }
+
+    /**
+     * Réinitialise le mot de passe d'un utilisateur par son nom (profil dev uniquement).
+     * Utile si le mot de passe en base ne correspond plus (ex: admin zorai / 001).
+     */
+    @Transactional
+    public void devResetPassword(String nom, String newPassword) {
+        User user = userRepository.findByNom(nom)
+                .orElseThrow(() -> new ResourceNotFoundException("Utilisateur", nom));
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setPasswordChangeRequired(false);
+        userRepository.save(user);
+        log.warn("DEV: mot de passe réinitialisé pour \"{}\"", nom);
     }
 }

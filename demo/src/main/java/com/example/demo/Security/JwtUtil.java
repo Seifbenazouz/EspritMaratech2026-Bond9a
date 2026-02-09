@@ -3,6 +3,8 @@ package com.example.demo.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,8 @@ import java.util.UUID;
 
 @Component
 public class JwtUtil {
+
+    private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
 
     @Value("${jwt.secret}")
     private String secret;
@@ -61,6 +65,8 @@ public class JwtUtil {
             parseToken(token);
             return true;
         } catch (Exception e) {
+            // Log pour diagnostic (expiration, signature invalide, etc.)
+            log.warn("JWT invalide: {} - {}", e.getClass().getSimpleName(), e.getMessage());
             return false;
         }
     }

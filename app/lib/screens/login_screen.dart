@@ -6,6 +6,7 @@ import '../widgets/language_switch_button.dart';
 import '../widgets/text_scale_button.dart';
 import '../widgets/theme_switch_button.dart';
 import '../services/auth_service.dart';
+import 'change_password_screen.dart';
 import 'member_main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -39,12 +40,21 @@ class _LoginScreenState extends State<LoginScreen> {
       ));
 
       if (!mounted) return;
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (_) => MemberMainScreen(user: response),
-        ),
-        (route) => false,
-      );
+      if (response.passwordChangeRequired) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (_) => ChangePasswordScreen(user: response),
+          ),
+          (route) => false,
+        );
+      } else {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (_) => MemberMainScreen(user: response),
+          ),
+          (route) => false,
+        );
+      }
     } catch (e) {
       if (!mounted) return;
       setState(() {

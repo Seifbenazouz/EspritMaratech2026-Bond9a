@@ -53,9 +53,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                         );
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+            } else if (StringUtils.hasText(jwt)) {
+                log.warn("JWT présent mais invalide ou expiré pour {} (vérifiez secret, expiration ou algorithme)", request.getRequestURI());
             }
         } catch (Exception e) {
-            // Ne pas bloquer la requête, laisser passer (endpoints publics ou 403 plus tard)
+            log.warn("Erreur lors de l'authentification JWT ({}): {}", request.getRequestURI(), e.getMessage());
         }
 
         filterChain.doFilter(request, response);

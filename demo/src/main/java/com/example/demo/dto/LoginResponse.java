@@ -21,4 +21,6 @@ public class LoginResponse {
     private String prenom;
     private String email;
     private Role role;
+    /** true si l'utilisateur doit changer son mot de passe (premier login après création par admin). */
+    private Boolean passwordChangeRequired;
 }

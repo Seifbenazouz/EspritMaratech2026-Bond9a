@@ -47,6 +47,10 @@ public class User {
     @Column(name = "fcm_token", length = 512)
     private String fcmToken;
 
+    /** Premier login : l'utilisateur doit changer son mot de passe (créé par admin avec CIN). */
+    @Column(name = "password_change_required")
+    private Boolean passwordChangeRequired;
+
     /** Notifications reçues par l'utilisateur (relation 1-N). */
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default

@@ -34,6 +34,14 @@ class AppLocalizations {
   String get language => _localizedValues[_localeKey]!['language']!;
   String get nameRequired => _localizedValues[_localeKey]!['nameRequired']!;
   String get passwordRequired => _localizedValues[_localeKey]!['passwordRequired']!;
+  String get changePasswordTitle => _localizedValues[_localeKey]!['changePasswordTitle']!;
+  String get changePasswordSubtitle => _localizedValues[_localeKey]!['changePasswordSubtitle']!;
+  String get currentPassword => _localizedValues[_localeKey]!['currentPassword']!;
+  String get newPassword => _localizedValues[_localeKey]!['newPassword']!;
+  String get confirmPassword => _localizedValues[_localeKey]!['confirmPassword']!;
+  String get passwordRequirements => _localizedValues[_localeKey]!['passwordRequirements']!;
+  String get passwordChanged => _localizedValues[_localeKey]!['passwordChanged']!;
+  String get passwordsDoNotMatch => _localizedValues[_localeKey]!['passwordsDoNotMatch']!;
   String get groups => _localizedValues[_localeKey]!['groups']!;
   String get administration => _localizedValues[_localeKey]!['administration']!;
   String get programmes => _localizedValues[_localeKey]!['programmes']!;
@@ -91,6 +99,7 @@ class AppLocalizations {
   String get createEvent => _localizedValues[_localeKey]!['createEvent']!;
   String get firstName => _localizedValues[_localeKey]!['firstName']!;
   String get email => _localizedValues[_localeKey]!['email']!;
+  String get invalidEmail => _localizedValues[_localeKey]!['invalidEmail']!;
   String get role => _localizedValues[_localeKey]!['role']!;
   String get cin => _localizedValues[_localeKey]!['cin']!;
   String get title => _localizedValues[_localeKey]!['title']!;
@@ -234,6 +243,14 @@ class AppLocalizations {
       'language': 'Langue',
       'nameRequired': 'Le nom est requis',
       'passwordRequired': 'Le mot de passe est requis',
+      'changePasswordTitle': 'Changer votre mot de passe',
+      'changePasswordSubtitle': 'Pour des raisons de sécurité, définissez un nouveau mot de passe (min. 8 caractères, majuscule, minuscule, chiffre, caractère spécial).',
+      'currentPassword': 'Mot de passe actuel',
+      'newPassword': 'Nouveau mot de passe',
+      'confirmPassword': 'Confirmer le mot de passe',
+      'passwordRequirements': 'Min. 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial',
+      'passwordChanged': 'Mot de passe modifié',
+      'passwordsDoNotMatch': 'Les mots de passe ne correspondent pas',
       'groups': 'Groupes',
       'administration': 'Administration',
       'programmes': 'Programmes',
@@ -291,6 +308,7 @@ class AppLocalizations {
       'createEvent': 'Créer un événement',
       'firstName': 'Prénom',
       'email': 'Email',
+      'invalidEmail': 'Adresse email invalide',
       'role': 'Rôle',
       'cin': 'CIN',
       'title': 'Titre',
@@ -443,6 +461,14 @@ class AppLocalizations {
       'language': 'Language',
       'nameRequired': 'Name is required',
       'passwordRequired': 'Password is required',
+      'changePasswordTitle': 'Change your password',
+      'changePasswordSubtitle': 'For security, set a new password (min. 8 characters, uppercase, lowercase, digit, special character).',
+      'currentPassword': 'Current password',
+      'newPassword': 'New password',
+      'confirmPassword': 'Confirm password',
+      'passwordRequirements': 'Min. 8 characters, 1 uppercase, 1 lowercase, 1 digit, 1 special character',
+      'passwordChanged': 'Password changed',
+      'passwordsDoNotMatch': 'Passwords do not match',
       'groups': 'Groups',
       'administration': 'Administration',
       'programmes': 'Programmes',
@@ -500,6 +526,7 @@ class AppLocalizations {
       'createEvent': 'Create event',
       'firstName': 'First name',
       'email': 'Email',
+      'invalidEmail': 'Invalid email address (e.g. name@domain.com)',
       'role': 'Role',
       'cin': 'ID number',
       'title': 'Title',
@@ -652,6 +679,14 @@ class AppLocalizations {
       'language': 'اللغة',
       'nameRequired': 'الاسم مطلوب',
       'passwordRequired': 'كلمة المرور مطلوبة',
+      'changePasswordTitle': 'تغيير كلمة المرور',
+      'changePasswordSubtitle': 'للمرونة، حدد كلمة مرور جديدة (8 أحرف على الأقل، حرف كبير، صغير، رقم، رمز خاص).',
+      'currentPassword': 'كلمة المرور الحالية',
+      'newPassword': 'كلمة المرور الجديدة',
+      'confirmPassword': 'تأكيد كلمة المرور',
+      'passwordRequirements': '8 أحرف على الأقل، حرف كبير، حرف صغير، رقم، رمز خاص',
+      'passwordChanged': 'تم تغيير كلمة المرور',
+      'passwordsDoNotMatch': 'كلمات المرور غير متطابقة',
       'groups': 'المجموعات',
       'administration': 'الإدارة',
       'programmes': 'البرامج',
@@ -709,6 +744,7 @@ class AppLocalizations {
       'createEvent': 'إنشاء حدث',
       'firstName': 'الاسم الأول',
       'email': 'البريد',
+      'invalidEmail': 'البريد الإلكتروني غير صالح (مثال: name@domain.com)',
       'role': 'الدور',
       'cin': 'رقم البطاقة',
       'title': 'العنوان',
@@ -861,6 +897,14 @@ class AppLocalizations {
       'language': 'Lingua',
       'nameRequired': 'Il nome è obbligatorio',
       'passwordRequired': 'La password è obbligatoria',
+      'changePasswordTitle': 'Cambia password',
+      'changePasswordSubtitle': 'Per sicurezza, imposta una nuova password (min. 8 caratteri, maiuscola, minuscola, cifra, carattere speciale).',
+      'currentPassword': 'Password attuale',
+      'newPassword': 'Nuova password',
+      'confirmPassword': 'Conferma password',
+      'passwordRequirements': 'Min. 8 caratteri, 1 maiuscola, 1 minuscola, 1 cifra, 1 carattere speciale',
+      'passwordChanged': 'Password modificata',
+      'passwordsDoNotMatch': 'Le password non corrispondono',
       'groups': 'Gruppi',
       'administration': 'Amministrazione',
       'programmes': 'Programmi',
@@ -918,6 +962,7 @@ class AppLocalizations {
       'createEvent': 'Crea evento',
       'firstName': 'Nome',
       'email': 'Email',
+      'invalidEmail': 'Indirizzo email non valido (es. nome@dominio.com)',
       'role': 'Ruolo',
       'cin': 'Documento',
       'title': 'Titolo',
@@ -1070,6 +1115,14 @@ class AppLocalizations {
       'language': 'Sprache',
       'nameRequired': 'Der Name ist erforderlich',
       'passwordRequired': 'Das Passwort ist erforderlich',
+      'changePasswordTitle': 'Passwort ändern',
+      'changePasswordSubtitle': 'Aus Sicherheitsgründen setzen Sie ein neues Passwort (min. 8 Zeichen, Groß-, Kleinbuchstabe, Ziffer, Sonderzeichen).',
+      'currentPassword': 'Aktuelles Passwort',
+      'newPassword': 'Neues Passwort',
+      'confirmPassword': 'Passwort bestätigen',
+      'passwordRequirements': 'Min. 8 Zeichen, 1 Groß-, 1 Kleinbuchstabe, 1 Ziffer, 1 Sonderzeichen',
+      'passwordChanged': 'Passwort geändert',
+      'passwordsDoNotMatch': 'Die Passwörter stimmen nicht überein',
       'groups': 'Gruppen',
       'administration': 'Verwaltung',
       'programmes': 'Programme',
@@ -1127,6 +1180,7 @@ class AppLocalizations {
       'createEvent': 'Event erstellen',
       'firstName': 'Vorname',
       'email': 'E-Mail',
+      'invalidEmail': 'Ungültige E-Mail-Adresse (z.B. name@domain.com)',
       'role': 'Rolle',
       'cin': 'Ausweisnummer',
       'title': 'Titel',
